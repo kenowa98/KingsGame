@@ -5,4 +5,8 @@
     <string name="clave">Contraseña</string>
     <string name="bt_login">ENTRAR</string>
     <string name="bt_registro">REGISTRARSE</string>
+
+    <string name="registro_titulo">REGISTRO</string>
+    <string name="claveAgain">Confirmar contraseña</string>
+    <string name="bt_guardar">GUARDAR</string>
 </resources>

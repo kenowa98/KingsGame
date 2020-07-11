@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistroActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/amiko"
+            android:text="@string/registro_titulo"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/duo"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_correo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/et_rounded"
+                android:ems="10"
+                android:fontFamily="@font/amiko"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textSize="24sp"
+                tools:ignore="Autofill" />
+
+            <EditText
+                android:id="@+id/et_clave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/et_rounded"
+                android:ems="10"
+                android:fontFamily="@font/amiko"
+                android:hint="@string/clave"
+                android:inputType="textPassword"
+                android:textSize="24sp"
+                tools:ignore="Autofill" />
+
+            <EditText
+                android:id="@+id/et_claveAgain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="60dp"
+                android:background="@drawable/et_rounded"
+                android:ems="10"
+                android:fontFamily="@font/amiko"
+                android:hint="@string/claveAgain"
+                android:inputType="textPassword"
+                android:textSize="24sp"
+                tools:ignore="Autofill" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bt_rounded"
+                android:fontFamily="@font/amiko"
+                android:text="@string/bt_guardar"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
