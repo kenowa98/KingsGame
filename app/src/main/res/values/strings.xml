@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Kings Game</string>
+
+    <string name="email">Correo electrónico</string>
+    <string name="clave">Contraseña</string>
+    <string name="bt_login">ENTRAR</string>
+    <string name="bt_registro">REGISTRARSE</string>
+</resources>
