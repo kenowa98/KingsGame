@@ -12,7 +12,15 @@
 
     <string name="action_close">Cerrar sesión</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="msg_perfil">
+        Crea tu perfil y diviértete!
+    </string>
+    <string name="bt_crear">CREAR</string>
+
+
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

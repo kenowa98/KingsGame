@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "538079487857",
+    "firebase_url": "https://kings-game-6fa3a.firebaseio.com",
+    "project_id": "kings-game-6fa3a",
+    "storage_bucket": "kings-game-6fa3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538079487857:android:2f25a4f0b84cf71bb7f8d0",
+        "android_client_info": {
+          "package_name": "com.kenowa.kingsgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538079487857-eqlgnqpiav2jjtokrlaqogehbmuhdl98.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kenowa.kingsgame",
+            "certificate_hash": "04ec77c2373c714dc456634b388e3ee392943f46"
+          }
+        },
+        {
+          "client_id": "538079487857-hv6ov4vkotn9fja423mp2ujo8q7i6edq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpH_ER5Y9OxKnwgmFJUVfRGvvrWsyrMbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538079487857-hv6ov4vkotn9fja423mp2ujo8q7i6edq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
