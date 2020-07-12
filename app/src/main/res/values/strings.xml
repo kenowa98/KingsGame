@@ -9,4 +9,10 @@
     <string name="registro_titulo">REGISTRO</string>
     <string name="claveAgain">Confirmar contraseña</string>
     <string name="bt_guardar">GUARDAR</string>
+
+    <string name="action_close">Cerrar sesión</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
 </resources>
