@@ -26,7 +26,11 @@ class RegistroActivity : AppCompatActivity() {
         dataIncomplete(email, clave, claveAgain)
     }
 
-    private fun dataIncomplete(email: String, clave: String, claveAgain: String) {
+    private fun dataIncomplete(
+        email: String,
+        clave: String,
+        claveAgain: String
+    ) {
         if (email.isEmpty() || clave.isEmpty() || claveAgain.isEmpty()) {
             showMessage(this, "Hay campos vacíos")
         } else {
@@ -34,7 +38,11 @@ class RegistroActivity : AppCompatActivity() {
         }
     }
 
-    private fun equalPassword(email: String, clave: String, claveAgain: String) {
+    private fun equalPassword(
+        email: String,
+        clave: String,
+        claveAgain: String
+    ) {
         if (clave == claveAgain) {
             val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
             mAuth.createUserWithEmailAndPassword(email, clave)

@@ -5,11 +5,12 @@ class Usuario(
     val correo: String = "",
     val nombre: String = "",
     val apellido: String = "",
-    val edad: Int = 0,
+    val fecha: String = "",
     val origen: String = "",
     val celular: String = "",
     val genero: Boolean = false,
     val foto: String = "",
     val posicion: String = "",
-    val barrio: String = ""
+    val barrio: String = "",
+    val comuna: String = ""
 )

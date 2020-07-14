@@ -13,14 +13,402 @@
     <string name="action_close">Cerrar sesión</string>
 
     <string name="menu_perfil">Perfil</string>
-    <string name="msg_perfil">
-        Crea tu perfil y diviértete!
-    </string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="edad">Edad</string>
+    <string name="origen">Origen</string>
+    <string name="genero">Género</string>
+    <string name="posicion">Posición</string>
+    <string name="barrio">Barrio</string>
+    <string name="celular">Celular</string>
+    <string name="ext">+57</string>
+    <string name="fecha_nacimiento">Fecha de nacimiento</string>
+    <string name="fecha">yyyy/MM/dd</string>
+    <string name="sexF">Femenino</string>
+    <string name="sexM">Masculino</string>
+    <string name="lugar_nacimiento">Lugar de nacimiento</string>
+    <string name="foto">Foto cuerpo entero</string>
     <string name="bt_crear">CREAR</string>
+    <string name="bt_actualizar">ACTUALIZAR</string>
+    <string name="bt_comenzar">COMENZAR</string>
+
+    <string-array name="lista_ciudades">
+        <item>Seleccione una ciudad</item>
+        <item>Otro</item>
+        <item>Extranjero</item>
+        <item>Armenia</item>
+        <item>Barranquilla</item>
+        <item>Bello</item>
+        <item>Bogotá</item>
+        <item>Bucaramanga</item>
+        <item>Cali</item>
+        <item>Cartagena</item>
+        <item>Cúcuta</item>
+        <item>Ibagué</item>
+        <item>Manizales</item>
+        <item>Medellín</item>
+        <item>Montería</item>
+        <item>Neiva</item>
+        <item>Pasto</item>
+        <item>Pereira</item>
+        <item>Santa Marta</item>
+        <item>Soacha</item>
+        <item>Soledad</item>
+        <item>Valledupar</item>
+        <item>Villavicencio</item>
+    </string-array>
+
+    <string-array name="lista_comunas">
+        <item>Seleccione la comuna donde vive</item>
+        <item>Otro</item>
+        <item>Aranjuez</item>
+        <item>Belén</item>
+        <item>Buenos Aires</item>
+        <item>Castilla</item>
+        <item>Doce de Octubre</item>
+        <item>El Poblado</item>
+        <item>Guayabal</item>
+        <item>La América</item>
+        <item>La Candelaria</item>
+        <item>Laureles-Estadio</item>
+        <item>Manrique</item>
+        <item>Popular</item>
+        <item>Robledo</item>
+        <item>San Javier</item>
+        <item>Santa Cruz</item>
+        <item>Villa Hermosa</item>
+    </string-array>
+
+    <string-array name="Aranjuez">
+        <item>Aranjuez</item>
+        <item>Berlín</item>
+        <item>Bermejal - Los Álamos</item>
+        <item>Brasilia</item>
+        <item>Campo Valdés Nº 1</item>
+        <item>La Piñuela</item>
+        <item>Las Esmeraldas</item>
+        <item>Manrique Central Nº 1</item>
+        <item>Miranda</item>
+        <item>Moravia</item>
+        <item>Palermo</item>
+        <item>San Isidro</item>
+        <item>San Pedro</item>
+        <item>Sevilla</item>
+    </string-array>
+
+    <string-array name="Belen">
+        <item>Aguas Frías</item>
+        <item>Altavista</item>
+        <item>Belén</item>
+        <item>Cerro Nutibara</item>
+        <item>Diego Echavarria</item>
+        <item>El Nogal - Los Almendros</item>
+        <item>El Rincón</item>
+        <item>Fátima</item>
+        <item>Granada</item>
+        <item>La Gloria</item>
+        <item>La Hondonada</item>
+        <item>La Loma de Los Bernal</item>
+        <item>La Mota</item>
+        <item>La Palma</item>
+        <item>Las Mercedes</item>
+        <item>Las Playas</item>
+        <item>Las Violetas</item>
+        <item>Los Alpes</item>
+        <item>Miravalle</item>
+        <item>Nueva Villa de Aburrá</item>
+        <item>Rodeo Alto</item>
+        <item>Rosales</item>
+        <item>San Bernardo</item>
+        <item>Zafra</item>
+    </string-array>
+
+    <string-array name="BuenosAires">
+        <item>Alejandro Echavarría</item>
+        <item>Asomadera Nº 1</item>
+        <item>Asomadera Nº 2</item>
+        <item>Asomadera Nº 3</item>
+        <item>Barrios de Jesús</item>
+        <item>Bomboná Nº 2</item>
+        <item>Buenos Aires</item>
+        <item>Caicedo</item>
+        <item>Cataluña</item>
+        <item>El Salvador</item>
+        <item>Gerona</item>
+        <item>Juan Pablo II</item>
+        <item>La Milagrosa</item>
+        <item>Loreto</item>
+        <item>Los Cerros - El Vergel</item>
+        <item>Miraflores</item>
+        <item>Ocho de Marzo</item>
+        <item>Quinta Linda</item>
+    </string-array>
+
+    <string-array name="Castilla">
+        <item>Alfonso López</item>
+        <item>Belalcázar</item>
+        <item>Boyacá</item>
+        <item>Caribe</item>
+        <item>Castilla</item>
+        <item>El Progreso</item>
+        <item>Florencia</item>
+        <item>Francisco Antonio Zea</item>
+        <item>Girardot</item>
+        <item>Héctor Abad Gómez</item>
+        <item>Las Brisas</item>
+        <item>Tejelo</item>
+        <item>Toscana</item>
+        <item>Tricentenario</item>
+    </string-array>
+
+    <string-array name="DoceDeOctubre">
+        <item>Doce de Octubre Nº 1</item>
+        <item>Doce de Octubre Nº 2</item>
+        <item>El Progreso Nº 2</item>
+        <item>El Triunfo</item>
+        <item>Kennedy</item>
+        <item>La Esperanza</item>
+        <item>Mirador del Doce</item>
+        <item>Pedregal</item>
+        <item>Picachito</item>
+        <item>Picacho</item>
+        <item>San Martín de Porres</item>
+        <item>Santander</item>
+    </string-array>
+
+    <string-array name="ElPoblado">
+        <item>Alejandría</item>
+        <item>Altos del Poblado</item>
+        <item>Astorga</item>
+        <item>Barrio Colombia</item>
+        <item>Castropol</item>
+        <item>El Castillo</item>
+        <item>El Diamante</item>
+        <item>El Poblado</item>
+        <item>El Tesoro</item>
+        <item>La Aguacatala</item>
+        <item>La Florida</item>
+        <item>Lalinde</item>
+        <item>Las Lomas Nº 1</item>
+        <item>Las Lomas Nº 2</item>
+        <item>Los Balsos Nº 1</item>
+        <item>Los Balsos Nº 2</item>
+        <item>Los Naranjos</item>
+        <item>Manila</item>
+        <item>Patio Bonito</item>
+        <item>San Lucas</item>
+        <item>Santa María de Los Ángeles</item>
+        <item>Villa Carlota</item>
+    </string-array>
+
+    <string-array name="Guayabal">
+        <item>Campo Amor</item>
+        <item>Cristo Rey</item>
+        <item>Guayabal</item>
+        <item>La Colina</item>
+        <item>Santa Fe</item>
+        <item>Tenche</item>
+        <item>Trinidad</item>
+    </string-array>
+
+    <string-array name="LaAmerica">
+        <item>Barrio Cristóbal</item>
+        <item>Calasanz</item>
+        <item>Calasanz Parte Alta</item>
+        <item>Campo Alegre</item>
+        <item>El Danubio</item>
+        <item>Ferrini</item>
+        <item>La América</item>
+        <item>La Floresta</item>
+        <item>Los Pinos</item>
+        <item>Santa Lucía</item>
+        <item>Santa Mónica</item>
+        <item>Santa Teresita</item>
+        <item>Simón Bolívar</item>
+    </string-array>
+
+    <string-array name="LaCandelaria">
+        <item>Barrio Colón</item>
+        <item>Bomboná Nº 1</item>
+        <item>Boston</item>
+        <item>Calle Nueva</item>
+        <item>Corazón de Jesús - Barrio Triste</item>
+        <item>El Chagualo</item>
+        <item>Estación Villa</item>
+        <item>Guayaquil</item>
+        <item>Jesús Nazareno</item>
+        <item>La Candelaria</item>
+        <item>Las Palmas</item>
+        <item>Los Ángeles</item>
+        <item>Perpetuo Socorro</item>
+        <item>Prado</item>
+        <item>San Benito</item>
+        <item>San Diego</item>
+        <item>Villa Nueva</item>
+    </string-array>
+
+    <string-array name="Laureles">
+        <item>Bolivariana</item>
+        <item>Carlos E. Restrepo</item>
+        <item>Cuarta Brigada</item>
+        <item>El Velódromo</item>
+        <item>Estadio</item>
+        <item>Florida Nueva</item>
+        <item>La Castellana</item>
+        <item>Las Acacias</item>
+        <item>Laureles</item>
+        <item>Lorena</item>
+        <item>Los Colores</item>
+        <item>Los Conquistadores</item>
+        <item>Naranjal</item>
+        <item>San Joaquín</item>
+        <item>Suramericana</item>
+    </string-array>
+
+    <string-array name="Manrique">
+        <item>Campo Valdés Nº 2</item>
+        <item>El Pomar</item>
+        <item>El Raizal</item>
+        <item>La Cruz</item>
+        <item>La Honda</item>
+        <item>La Salle</item>
+        <item>Las Granjas</item>
+        <item>Manrique Central Nº 2</item>
+        <item>Manrique Oriental</item>
+        <item>Maria Cano - Carambola</item>
+        <item>Oriente</item>
+        <item>San José La Cima Nº 1</item>
+        <item>San José La Cima Nº 2</item>
+        <item>Santa Inés</item>
+        <item>Versalles Nº 1</item>
+        <item>Versalles Nº 2</item>
+    </string-array>
+
+    <string-array name="Popular">
+        <item>Aldea Pablo VI</item>
+        <item>Carpinelo</item>
+        <item>El Compromiso</item>
+        <item>Granizal</item>
+        <item>La Avanzada</item>
+        <item>La Esperanza Nº 2</item>
+        <item>Moscú Nº 2</item>
+        <item>Popular Nº 1</item>
+        <item>Popular Nº 2</item>
+        <item>Santo Domingo Savio Nº 1</item>
+        <item>Santo Domingo Savio Nº 2</item>
+        <item>San Pablo</item>
+        <item>Villa Guadalupe</item>
+    </string-array>
+
+    <string-array name="Robledo">
+        <item>Altamira</item>
+        <item>Aures Nº 1</item>
+        <item>Aures Nº 2</item>
+        <item>Barrio Facultad de Minas</item>
+        <item>Bello Horizonte</item>
+        <item>Bosques de San Pablo</item>
+        <item>Córdoba</item>
+        <item>Cucaracho</item>
+        <item>El Diamante</item>
+        <item>El Volador</item>
+        <item>Fuente Clara</item>
+        <item>La Aurora</item>
+        <item>La Campiña</item>
+        <item>La Cuchilla</item>
+        <item>La Pilarica</item>
+        <item>López de Mesa</item>
+        <item>Monteclaro</item>
+        <item>Olaya Herrera</item>
+        <item>Pajarito</item>
+        <item>Palenque</item>
+        <item>Robledo</item>
+        <item>San Germán</item>
+        <item>Santa Margarita</item>
+        <item>Villa de La Iguaná</item>
+        <item>Villa Flora</item>
+    </string-array>
+
+    <string-array name="SanJavier">
+        <item>Antonio Nariño</item>
+        <item>Belencito</item>
+        <item>Betania</item>
+        <item>Blanquizal</item>
+        <item>Calasania</item>
+        <item>Eduardo Santos</item>
+        <item>Juan XXIII</item>
+        <item>El Corazón</item>
+        <item>El Pesebre</item>
+        <item>El Salado</item>
+        <item>El Socorro</item>
+        <item>La Divisa</item>
+        <item>La Pradera</item>
+        <item>Las Independencias</item>
+        <item>Los Alcázares</item>
+        <item>Metropolitano</item>
+        <item>Nuevos Conquistadores</item>
+        <item>Peñitas</item>
+        <item>San Javier Nº 1</item>
+        <item>San Javier Nº 2</item>
+        <item>Santa Rosa de Lima</item>
+        <item>Veinte de Julio</item>
+    </string-array>
+
+    <string-array name="SantaCruz">
+        <item>Andalucía</item>
+        <item>El Playón de Los Comuneros</item>
+        <item>La Francia</item>
+        <item>La Frontera</item>
+        <item>La Isla</item>
+        <item>La Rosa</item>
+        <item>Moscú Nº 1</item>
+        <item>Pablo VI</item>
+        <item>Santa Cruz</item>
+        <item>Villa del Socorro</item>
+        <item>Villa Niza</item>
+    </string-array>
+
+    <string-array name="VillaHermosa">
+        <item>Batallón Girardot</item>
+        <item>El Pinal</item>
+        <item>Enciso</item>
+        <item>Esfuerzos de Paz Nº 1</item>
+        <item>Esfuerzos de Paz Nº 2</item>
+        <item>Golondrinas</item>
+        <item>La Ladera</item>
+        <item>La Libertad</item>
+        <item>La Mansión</item>
+        <item>La Sierra</item>
+        <item>Las Estancias</item>
+        <item>Llanaditas</item>
+        <item>Los Mangos</item>
+        <item>San Antonio</item>
+        <item>San Miguel</item>
+        <item>Sucre</item>
+        <item>Trece de Noviembre</item>
+        <item>Villa Hermosa</item>
+        <item>Villa Lilliam</item>
+        <item>Villa Turbay</item>
+        <item>Villatina</item>
+    </string-array>
+
+    <string-array name="lista_posiciones">
+        <item>Seleccione su posición habitual</item>
+        <item>Arquero</item>
+        <item>Defensa Central</item>
+        <item>Defensa Lateral</item>
+        <item>Carrilero</item>
+        <item>Líbero</item>
+        <item>Volante Defensivo</item>
+        <item>Volante Centro</item>
+        <item>Volante en Banda</item>
+        <item>Media Punta</item>
+        <item>Extremo</item>
+        <item>Delantero Centro</item>
+        <item>Segundo Delantero</item>
+    </string-array>
 
 
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

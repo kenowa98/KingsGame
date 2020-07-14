@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    tools:context=".ui.perfil.PerfilRegistroFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/et_rounded"
+            android:ems="10"
+            android:fontFamily="@font/amiko"
+            android:hint="@string/nombre"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
+            tools:ignore="Autofill" />
+
+        <EditText
+            android:id="@+id/et_apellido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/et_rounded"
+            android:ems="10"
+            android:fontFamily="@font/amiko"
+            android:hint="@string/apellido"
+            android:inputType="textPersonName"
+            android:textSize="24sp"
+            tools:ignore="Autofill" />
+
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:fontFamily="@font/amiko"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/ext"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/et_celular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/et_rounded"
+                android:ems="10"
+                android:fontFamily="@font/amiko"
+                android:hint="@string/celular"
+                android:inputType="number"
+                android:textSize="24sp"
+                tools:ignore="Autofill" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/amiko"
+            android:text="@string/fecha_nacimiento"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linear2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_fechaNacimiento"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="12dp"
+                android:layout_weight="1"
+                android:background="@drawable/et_rounded"
+                android:fontFamily="@font/amiko"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="@string/fecha"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <ImageButton
+                android:id="@+id/ibt_calendario"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/bt_edit"
+                android:scaleType="fitCenter"
+                app:srcCompat="@android:drawable/ic_menu_my_calendar"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/amiko"
+            android:text="@string/genero"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/rSex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbt_masculino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:fontFamily="@font/amiko"
+                android:text="@string/sexM"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/rbt_femenino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/amiko"
+                android:text="@string/sexF"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tv4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/amiko"
+            android:text="@string/lugar_nacimiento"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/sp_lugarNacimiento"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/et_rounded"
+            android:entries="@array/lista_ciudades" />
+
+        <TextView
+            android:id="@+id/tv5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/amiko"
+            android:text="@string/barrio"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/sp_comuna"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/et_rounded"
+            android:entries="@array/lista_comunas" />
+
+        <Spinner
+            android:id="@+id/sp_barrio"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/et_rounded" />
+
+        <TextView
+            android:id="@+id/tv6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/amiko"
+            android:text="@string/posicion"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/sp_posicion"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/et_rounded"
+            android:entries="@array/lista_posiciones" />
+
+        <TextView
+            android:id="@+id/tv7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/amiko"
+            android:text="@string/foto"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ibt_foto"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_camera"
+            tools:ignore="ContentDescription" />
+
+        <Button
+            android:id="@+id/bt_crear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bt_rounded"
+            android:fontFamily="@font/amiko"
+            android:text="@string/bt_crear"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/bt_actualizar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bt_rounded"
+            android:fontFamily="@font/amiko"
+            android:text="@string/bt_actualizar"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_team"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/team"
+            tools:ignore="ContentDescription" />
+
+        <Button
+            android:id="@+id/bt_comenzar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bt_rounded"
+            android:fontFamily="@font/amiko"
+            android:text="@string/bt_comenzar"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</ScrollView>

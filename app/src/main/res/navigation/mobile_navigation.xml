@@ -7,9 +7,13 @@
 
     <fragment
         android:id="@+id/nav_perfil"
-        android:name="com.kenowa.kingsgame.ui.perfil.PerfilInicioFragment"
+        android:name="com.kenowa.kingsgame.ui.perfil.PerfilFragment"
         android:label="@string/menu_perfil"
-        tools:layout="@layout/fragment_perfil_inicio" />
+        tools:layout="@layout/fragment_perfil">
+        <action
+            android:id="@+id/action_nav_perfil_to_nav_perfil_registro"
+            app:destination="@id/nav_perfil_registro" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
@@ -22,4 +26,15 @@
         android:name="com.kenowa.kingsgame.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_perfil_registro"
+        android:name="com.kenowa.kingsgame.ui.perfil.PerfilRegistroFragment"
+        android:label="@string/menu_perfil"
+        tools:layout="@layout/fragment_perfil_registro">
+        <action
+            android:id="@+id/action_nav_perfil_registro_to_nav_perfil"
+            app:destination="@id/nav_perfil" />
+    </fragment>
+
 </navigation>

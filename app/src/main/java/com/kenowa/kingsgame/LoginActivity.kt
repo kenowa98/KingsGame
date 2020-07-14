@@ -40,7 +40,10 @@ class LoginActivity : AppCompatActivity() {
         dataIncomplete(email, clave)
     }
 
-    private fun dataIncomplete(email: String, clave: String) {
+    private fun dataIncomplete(
+        email: String,
+        clave: String
+    ) {
         if (email.isEmpty() || clave.isEmpty()) {
             showMessage(this, "Hay campos vacíos")
         } else {
