@@ -407,8 +407,9 @@
         <item>Segundo Delantero</item>
     </string-array>
 
+    <string name="menu_equipo">Equipo</string>
 
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_noticia">Noticias</string>
+
 
 </resources>

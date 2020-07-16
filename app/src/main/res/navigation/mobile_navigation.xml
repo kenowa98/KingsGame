@@ -16,16 +16,16 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.kenowa.kingsgame.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_noticia"
+        android:name="com.kenowa.kingsgame.ui.noticia.NoticiaFragment"
+        android:label="@string/menu_noticia"
+        tools:layout="@layout/fragment_noticia" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.kenowa.kingsgame.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_equipo"
+        android:name="com.kenowa.kingsgame.ui.equipo.EquipoFragment"
+        android:label="@string/menu_equipo"
+        tools:layout="@layout/fragment_equipo" />
 
     <fragment
         android:id="@+id/nav_perfil_registro"

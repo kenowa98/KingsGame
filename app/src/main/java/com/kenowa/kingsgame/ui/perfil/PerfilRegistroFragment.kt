@@ -29,6 +29,7 @@ class PerfilRegistroFragment : Fragment() {
     private lateinit var fecha: String
     private var cal = Calendar.getInstance()
     private lateinit var user: Usuario
+    private var check = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +47,8 @@ class PerfilRegistroFragment : Fragment() {
         iv_team.visibility = View.GONE
         bt_comenzar.visibility = View.GONE
 
+        appearBarrio(view.findViewById(R.id.sp_comuna))
+
         visualizeSpinner(view.findViewById(R.id.sp_lugarNacimiento), R.array.lista_ciudades)
         visualizeSpinner(view.findViewById(R.id.sp_comuna), R.array.lista_comunas)
         visualizeSpinner(view.findViewById(R.id.sp_posicion), R.array.lista_posiciones)
@@ -58,8 +61,6 @@ class PerfilRegistroFragment : Fragment() {
         bt_comenzar.setOnClickListener {
             findNavController().navigate(R.id.action_nav_perfil_registro_to_nav_perfil)
         }
-
-        appearBarrio(view.findViewById(R.id.sp_comuna))
     }
 
     private fun update(click: Boolean) {
@@ -147,6 +148,7 @@ class PerfilRegistroFragment : Fragment() {
         if (user.nombre == "") {
             bt_crear.visibility = View.VISIBLE
             bt_actualizar.visibility = View.GONE
+            ++check
         } else {
             et_nombre.setText(user.nombre)
             et_apellido.setText(user.apellido)
@@ -154,6 +156,7 @@ class PerfilRegistroFragment : Fragment() {
             tv_fechaNacimiento.text = user.fecha
             loadDataInSpinner(R.array.lista_ciudades, sp_lugarNacimiento, user.origen)
             loadDataInSpinner(R.array.lista_comunas, sp_comuna, user.comuna)
+            selectBarrio(user.comuna)
             loadDataInSpinner(R.array.lista_posiciones, sp_posicion, user.posicion)
             loadGender()
             bt_crear.visibility = View.GONE
@@ -210,8 +213,10 @@ class PerfilRegistroFragment : Fragment() {
                 pos: Int,
                 id: Long
             ) {
-                val item = parent.getItemAtPosition(pos)
-                selectBarrio(item)
+                if (++check > 2) {
+                    val item = parent.getItemAtPosition(pos)
+                    selectBarrio(item)
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
