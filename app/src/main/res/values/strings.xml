@@ -408,9 +408,14 @@
     </string-array>
 
     <string name="menu_equipo">Equipo</string>
+    <string name="msgEquipo">Aparece nombre del equipo, integrantes y calificaciones dadas por otros equipos</string>
 
     <string name="menu_partido">Partido</string>
     <string name="msgPartido">Se puede filtrar la búsqueda de un lugar para reservar y crear un partido</string>
+    <string name="bt_tu_reserva">Mira tus reservas</string>
+
+    <string name="menu_reserva">Tus reservaciones</string>
+    <string name="titulo_fecha">Fecha</string>
 
     <string name="menu_busqueda">Búsqueda</string>
     <string name="msgBusqueda">Hay la opción de filtrar la búsqueda de jugadores o equipos para reclutar, retar, invitar a jugar, entre otras opciones</string>
@@ -422,5 +427,5 @@
 
     <string name="titulo_new">Título</string>
     <string name="mensaje_new">Mensaje</string>
-    
+
 </resources>

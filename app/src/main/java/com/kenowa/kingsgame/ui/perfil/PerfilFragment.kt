@@ -72,7 +72,9 @@ class PerfilFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (datasnapshot: DataSnapshot in snapshot.children) {
                     val user = datasnapshot.getValue(Usuario::class.java)
-                    isUser(user, email)
+                    if (isUser(user, email)) {
+                        break
+                    }
                 }
             }
         }
@@ -82,10 +84,12 @@ class PerfilFragment : Fragment() {
     private fun isUser(
         user: Usuario?,
         email: String?
-    ) {
+    ): Boolean {
         if (user?.correo == email) {
             haveData(user)
+            return true
         }
+        return false
     }
 
     private fun haveData(user: Usuario?) {

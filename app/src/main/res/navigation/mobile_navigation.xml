@@ -41,7 +41,21 @@
         android:id="@+id/nav_partido"
         android:name="com.kenowa.kingsgame.ui.partido.PartidoFragment"
         android:label="@string/menu_partido"
-        tools:layout="@layout/fragment_partido" />
+        tools:layout="@layout/fragment_partido">
+        <action
+            android:id="@+id/action_nav_partido_to_nav_tu_reserva"
+            app:destination="@id/nav_tu_reserva" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_tu_reserva"
+        android:name="com.kenowa.kingsgame.ui.partido.ReservaFragment"
+        android:label="@string/menu_reserva"
+        tools:layout="@layout/fragment_reserva">
+        <action
+            android:id="@+id/action_nav_tu_reserva_to_nav_partido"
+            app:destination="@id/nav_partido" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_busqueda"
