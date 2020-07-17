@@ -411,5 +411,8 @@
 
     <string name="menu_noticia">Noticias</string>
 
+    <string name="titulo_new">Título</string>
+    <string name="mensaje_new">Mensaje</string>
+
 
 </resources>
