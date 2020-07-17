@@ -16,5 +16,9 @@
             android:id="@+id/nav_noticia"
             android:icon="@drawable/ic_menu_noticia"
             android:title="@string/menu_noticia" />
+        <item
+            android:id="@+id/nav_ranking"
+            android:icon="@drawable/ic_menu_ranking"
+            android:title="@string/menu_ranking" />
     </group>
 </menu>
