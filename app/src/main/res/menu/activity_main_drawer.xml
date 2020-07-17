@@ -13,6 +13,14 @@
             android:icon="@drawable/ic_menu_equipo"
             android:title="@string/menu_equipo" />
         <item
+            android:id="@+id/nav_partido"
+            android:icon="@drawable/ic_menu_partido"
+            android:title="@string/menu_partido" />
+        <item
+            android:id="@+id/nav_busqueda"
+            android:icon="@drawable/ic_menu_busqueda"
+            android:title="@string/menu_busqueda" />
+        <item
             android:id="@+id/nav_noticia"
             android:icon="@drawable/ic_menu_noticia"
             android:title="@string/menu_noticia" />

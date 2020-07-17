@@ -16,6 +16,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_perfil_registro"
+        android:name="com.kenowa.kingsgame.ui.perfil.PerfilRegistroFragment"
+        android:label="@string/menu_perfil"
+        tools:layout="@layout/fragment_perfil_registro">
+        <action
+            android:id="@+id/action_nav_perfil_registro_to_nav_perfil"
+            app:destination="@id/nav_perfil" />
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_noticia"
         android:name="com.kenowa.kingsgame.ui.noticia.NoticiaFragment"
         android:label="@string/menu_noticia"
@@ -28,14 +38,16 @@
         tools:layout="@layout/fragment_equipo" />
 
     <fragment
-        android:id="@+id/nav_perfil_registro"
-        android:name="com.kenowa.kingsgame.ui.perfil.PerfilRegistroFragment"
-        android:label="@string/menu_perfil"
-        tools:layout="@layout/fragment_perfil_registro">
-        <action
-            android:id="@+id/action_nav_perfil_registro_to_nav_perfil"
-            app:destination="@id/nav_perfil" />
-    </fragment>
+        android:id="@+id/nav_partido"
+        android:name="com.kenowa.kingsgame.ui.partido.PartidoFragment"
+        android:label="@string/menu_partido"
+        tools:layout="@layout/fragment_partido" />
+
+    <fragment
+        android:id="@+id/nav_busqueda"
+        android:name="com.kenowa.kingsgame.ui.busqueda.BusquedaFragment"
+        android:label="@string/menu_busqueda"
+        tools:layout="@layout/fragment_busqueda" />
 
     <fragment
         android:id="@+id/nav_ranking"

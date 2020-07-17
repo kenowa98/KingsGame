@@ -9,31 +9,30 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.ranking.RankingFragment">
+        tools:context=".ui.partido.PartidoFragment">
 
         <ImageView
-            android:id="@+id/iv_podium"
-            android:layout_width="300dp"
+            android:id="@+id/iv_partido"
+            android:layout_width="wrap_content"
             android:layout_height="350dp"
             android:layout_marginTop="8dp"
-            android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/podium"
+            app:srcCompat="@drawable/mapa"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/msgRanking"
+            android:text="@string/msgPartido"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_podium" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_partido" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
