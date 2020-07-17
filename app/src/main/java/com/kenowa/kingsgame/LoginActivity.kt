@@ -20,47 +20,44 @@ class LoginActivity : AppCompatActivity() {
     private var i = 0
     private val handler = Handler()
 
-    override fun onStart() {
-        super.onStart()
-        val user = mAuth.currentUser
-        existCurrentUser(user)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         progressBar = findViewById(R.id.progressBar)
-
         hideProgressBar(findViewById(R.id.progressBar))
+
         bt_registro.setOnClickListener { goToRegistroActivity() }
         bt_login.setOnClickListener {
             showProgressBar(findViewById(R.id.progressBar))
             requestLogin()
         }
+
+        existCurrentUser(mAuth.currentUser)
     }
 
     private fun existCurrentUser(user: FirebaseUser?) {
         if (user != null) {
-            goToMainActivity()
+            runProgressBar()
+            loadPerfil()
         }
     }
 
     private fun requestLogin() {
         val email = et_email.text.toString()
         val clave = et_clave.text.toString()
-
         hideKeyboard()
-        dataIncomplete(email, clave)
+        isCompleteData(email, clave)
     }
 
-    private fun dataIncomplete(
+    private fun isCompleteData(
         email: String,
         clave: String
     ) {
         if (email.isEmpty() || clave.isEmpty()) {
             showMessage(this, "Hay campos vacíos")
             hideProgressBar(findViewById(R.id.progressBar))
+            i = 0
         } else {
             mAuth.signInWithEmailAndPassword(email, clave)
                 .addOnCompleteListener(
@@ -76,10 +73,10 @@ class LoginActivity : AppCompatActivity() {
             runProgressBar()
             loadPerfil()
         } else {
-            i = 0
-            hideProgressBar(findViewById(R.id.progressBar))
             val errorCode = task.exception?.message.toString()
             identifyError(errorCode)
+            hideProgressBar(findViewById(R.id.progressBar))
+            i = 0
         }
     }
 
@@ -87,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
         i = progressBar!!.progress
         Thread(Runnable {
             while (i < 100) {
-                i += 5
+                i += 2
                 handler.post {
                     progressBar!!.progress = i
                 }
