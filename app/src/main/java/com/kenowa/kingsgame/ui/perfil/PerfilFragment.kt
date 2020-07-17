@@ -2,6 +2,7 @@ package com.kenowa.kingsgame.ui.perfil
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +15,15 @@ import com.kenowa.kingsgame.R
 import com.kenowa.kingsgame.getAge
 import com.kenowa.kingsgame.model.Usuario
 import com.kenowa.kingsgame.showMessage
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_perfil.*
 
+@Suppress("DEPRECATION")
 class PerfilFragment : Fragment() {
+    private var isStarted = false
+    private var progressStatus = 0
+    private var handler: Handler? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,10 +34,24 @@ class PerfilFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        iv_foto.visibility = View.GONE
         loadPerfil()
+        runProgressBar()
         ibt_edit.setOnClickListener {
             findNavController().navigate(R.id.action_nav_perfil_to_nav_perfil_registro)
         }
+    }
+
+    private fun runProgressBar() {
+        handler = Handler(Handler.Callback {
+            if (isStarted) {
+                progressStatus++
+            }
+            handler?.sendEmptyMessageDelayed(0, 100)
+
+            true
+        })
+        handler?.sendEmptyMessage(0)
     }
 
     private fun loadPerfil() {
@@ -72,6 +93,7 @@ class PerfilFragment : Fragment() {
             loadData(user)
         } else {
             showMessage(requireContext(), "Crea tu perfil!")
+            progressBar.visibility = View.GONE
         }
     }
 
@@ -84,6 +106,15 @@ class PerfilFragment : Fragment() {
             loadBarrio(user)
             loadAge(user)
             loadGender(user)
+            loadPhoto(user)
+        }
+    }
+
+    private fun loadPhoto(user: Usuario) {
+        if (user.foto.isNotEmpty()) {
+            iv_foto.visibility = View.VISIBLE
+            Picasso.get().load(user.foto).into(iv_foto)
+            progressBar.visibility = View.GONE
         }
     }
 

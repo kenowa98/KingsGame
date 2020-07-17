@@ -20,6 +20,11 @@ class LoginActivity : AppCompatActivity() {
     private var i = 0
     private val handler = Handler()
 
+    override fun onStart() {
+        super.onStart()
+        existCurrentUser(mAuth.currentUser)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -32,14 +37,11 @@ class LoginActivity : AppCompatActivity() {
             showProgressBar(findViewById(R.id.progressBar))
             requestLogin()
         }
-
-        existCurrentUser(mAuth.currentUser)
     }
 
     private fun existCurrentUser(user: FirebaseUser?) {
         if (user != null) {
-            runProgressBar()
-            loadPerfil()
+            goToMainActivity()
         }
     }
 
@@ -128,7 +130,7 @@ class LoginActivity : AppCompatActivity() {
     ) {
         if (user?.correo == email) {
             goToMainActivity()
-            showMessage(this, "Bienvenido a KG")
+            showMessage(this, "Bienvenid@ $email")
         }
     }
 

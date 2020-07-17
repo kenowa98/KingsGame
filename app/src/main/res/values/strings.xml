@@ -27,7 +27,7 @@
     <string name="sexF">Femenino</string>
     <string name="sexM">Masculino</string>
     <string name="lugar_nacimiento">Lugar de nacimiento</string>
-    <string name="foto">Foto cuerpo entero</string>
+    <string name="foto">Foto</string>
     <string name="bt_crear">CREAR</string>
     <string name="bt_actualizar">ACTUALIZAR</string>
     <string name="bt_comenzar">COMENZAR</string>

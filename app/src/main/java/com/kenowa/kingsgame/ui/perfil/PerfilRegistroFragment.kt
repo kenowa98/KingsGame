@@ -27,6 +27,7 @@ import com.kenowa.kingsgame.R
 import com.kenowa.kingsgame.getAge
 import com.kenowa.kingsgame.model.Usuario
 import com.kenowa.kingsgame.showMessage
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_perfil_registro.*
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -209,6 +210,7 @@ class PerfilRegistroFragment : Fragment() {
             loadDataInSpinner(R.array.lista_comunas, sp_comuna, usuarioPerfil.comuna)
             loadDataInSpinner(R.array.lista_posiciones, sp_posicion, usuarioPerfil.posicion)
             loadGender()
+            loadPhoto()
             spinnerBarrio(usuarioPerfil.comuna)
             bt_crear.visibility = View.GONE
             bt_actualizar.visibility = View.VISIBLE
@@ -236,6 +238,12 @@ class PerfilRegistroFragment : Fragment() {
             rSex.check(R.id.rbt_femenino)
         } else {
             rSex.check(R.id.rbt_masculino)
+        }
+    }
+
+    private fun loadPhoto() {
+        if (usuarioPerfil.foto.isNotEmpty()) {
+            Picasso.get().load(usuarioPerfil.foto).into(ibt_foto)
         }
     }
 
@@ -442,7 +450,7 @@ class PerfilRegistroFragment : Fragment() {
         val mStorage = FirebaseStorage.getInstance()
         val photoRef = mStorage.reference.child(perfilID)
         val baos = ByteArrayOutputStream()
-        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
 
         val data = baos.toByteArray()
         val uploadTask = photoRef.putBytes(data)
@@ -471,42 +479,4 @@ class PerfilRegistroFragment : Fragment() {
             }
         }
     }
-
-    /*private fun rotateImageIfRequired(
-        context: Context,
-        img: Bitmap,
-        selectedImage: Uri
-    ): Bitmap? {
-        val rotation = getRotation(context, selectedImage)
-        return if (rotation != 0) {
-            val matrix = Matrix()
-            matrix.postRotate(rotation.toFloat())
-            val rotatedImg =
-                Bitmap.createBitmap(img, 0, 0, img.width, img.height, matrix, true)
-            img.recycle()
-            rotatedImg
-        } else {
-            img
-        }
-    }
-
-    private fun getRotation(context: Context, selectedImage: Uri): Int {
-        var rotation = 0
-        val content: ContentResolver = contex
-        val mediaCursor: Cursor? = content.query(
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-            arrayOf("orientation", "date_added"),
-            null,
-            null,
-            "date_added desc"
-        )
-        if (mediaCursor != null && mediaCursor.getCount() !== 0) {
-            while (mediaCursor.moveToNext()) {
-                rotation = mediaCursor.getInt(0)
-                break
-            }
-        }
-        mediaCursor?.close()
-        return rotation
-    }*/
 }
