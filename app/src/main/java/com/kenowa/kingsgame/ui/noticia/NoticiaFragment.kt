@@ -1,6 +1,7 @@
 package com.kenowa.kingsgame.ui.noticia
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.kenowa.kingsgame.R
+import com.kenowa.kingsgame.hideProgressBar
 import com.kenowa.kingsgame.model.Noticia
 import kotlinx.android.synthetic.main.fragment_noticia.*
 
 class NoticiaFragment : Fragment() {
     private var allNews: MutableList<Noticia> = mutableListOf()
     private lateinit var noticiasAdapter: NoticiasRVAdapter
+
+    private var isStarted = false
+    private var progressStatus = 0
+    private var handler: Handler? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +33,7 @@ class NoticiaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        runProgressBar()
         loadNews()
 
         rv_noticias.layoutManager = LinearLayoutManager(
@@ -53,9 +60,23 @@ class NoticiaFragment : Fragment() {
                     val noticia = datasnapshot.getValue(Noticia::class.java)
                     allNews.add(noticia!!)
                 }
+                hideProgressBar(progressBar)
                 noticiasAdapter.notifyDataSetChanged()
             }
         }
         myRef.addValueEventListener(postListener)
+    }
+
+    @Suppress("DEPRECATION")
+    private fun runProgressBar() {
+        handler = Handler(Handler.Callback {
+            if (isStarted) {
+                progressStatus++
+            }
+            handler?.sendEmptyMessageDelayed(0, 100)
+
+            true
+        })
+        handler?.sendEmptyMessage(0)
     }
 }

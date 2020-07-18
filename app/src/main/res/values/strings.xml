@@ -28,9 +28,11 @@
     <string name="sexM">Masculino</string>
     <string name="lugar_nacimiento">Lugar de nacimiento</string>
     <string name="foto">Foto</string>
-    <string name="bt_crear">CREAR</string>
-    <string name="bt_actualizar">ACTUALIZAR</string>
     <string name="bt_comenzar">COMENZAR</string>
+    <string name="sector">Sector</string>
+    <string name="edad2">EDAD</string>
+    <string name="origen2">ORIGEN</string>
+    <string name="num_edad">21</string>
 
     <string-array name="lista_ciudades">
         <item>Seleccione una ciudad</item>

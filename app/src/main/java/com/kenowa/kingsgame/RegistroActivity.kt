@@ -14,6 +14,7 @@ class RegistroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
 
+        hideProgressBar(progressBar)
         bt_guardar.setOnClickListener { fullRegister() }
     }
 
@@ -23,22 +24,24 @@ class RegistroActivity : AppCompatActivity() {
         val claveAgain = et_claveAgain.text.toString()
 
         hideKeyboard()
-        dataIncomplete(email, clave, claveAgain)
+        showProgressBar(progressBar)
+        isCompleteData(email, clave, claveAgain)
     }
 
-    private fun dataIncomplete(
+    private fun isCompleteData(
         email: String,
         clave: String,
         claveAgain: String
     ) {
         if (email.isEmpty() || clave.isEmpty() || claveAgain.isEmpty()) {
             showMessage(this, "Hay campos vacíos")
+            hideProgressBar(progressBar)
         } else {
-            equalPassword(email, clave, claveAgain)
+            isEqualPasswords(email, clave, claveAgain)
         }
     }
 
-    private fun equalPassword(
+    private fun isEqualPasswords(
         email: String,
         clave: String,
         claveAgain: String
@@ -48,39 +51,38 @@ class RegistroActivity : AppCompatActivity() {
             mAuth.createUserWithEmailAndPassword(email, clave)
                 .addOnCompleteListener(
                     this
-                ) { task -> saveRegister(task) }
+                ) { task -> saveRegister(task, email) }
         } else {
             showMessage(this, "Las contraseñas no son iguales")
+            hideProgressBar(progressBar)
         }
     }
 
-    private fun saveRegister(task: Task<AuthResult>) {
+    private fun saveRegister(
+        task: Task<AuthResult>,
+        email: String
+    ) {
         if (task.isSuccessful) {
-            createUser()
+            createUser(email)
             showMessage(this, "Registro exitoso")
             FirebaseAuth.getInstance().signOut()
             onBackPressed()
         } else {
             val errorCode = task.exception?.message.toString()
+            hideProgressBar(progressBar)
             identifyError(errorCode)
         }
     }
 
-    private fun createUser() {
+    private fun createUser(email: String) {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("usuarios")
-        val idUser = myRef.push().key
-        val email = et_email.text.toString()
-        val user = idUser?.let {
-            Usuario(
-                it,
-                email
-            )
-        }
-
-        if (idUser != null) {
-            myRef.child(idUser).setValue(user)
-        }
+        val idUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        val user = Usuario(
+            id = idUser,
+            correo = email
+        )
+        myRef.child(idUser).setValue(user)
     }
 
     private fun identifyError(error: String) {

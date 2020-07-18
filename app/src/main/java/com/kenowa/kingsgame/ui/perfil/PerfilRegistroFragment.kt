@@ -1,5 +1,6 @@
 package com.kenowa.kingsgame.ui.perfil
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -25,6 +26,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import com.kenowa.kingsgame.R
 import com.kenowa.kingsgame.getAge
+import com.kenowa.kingsgame.hideProgressBar
 import com.kenowa.kingsgame.model.Usuario
 import com.kenowa.kingsgame.showMessage
 import com.squareup.picasso.Picasso
@@ -38,8 +40,7 @@ class PerfilRegistroFragment : Fragment() {
     private lateinit var fechaRegistro: String
     private var cal = Calendar.getInstance()
 
-    private lateinit var usuarioPerfil: Usuario
-    private lateinit var perfilID: String
+    private lateinit var user: Usuario
 
     private var checkSpinner = 0
     private val requestImageCapture = 1234
@@ -86,7 +87,6 @@ class PerfilRegistroFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     private fun configureButtons() {
         ibt_calendario.setOnClickListener { saveDate() }
-        bt_crear.setOnClickListener { dataUser(true) }
         bt_actualizar.setOnClickListener { dataUser(true) }
         ibt_foto.setOnClickListener { dispatchTakePictureIntent() }
         bt_comenzar.setOnClickListener {
@@ -97,9 +97,8 @@ class PerfilRegistroFragment : Fragment() {
     private fun dataUser(click: Boolean) {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("usuarios")
-        val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
-        val actual: FirebaseUser? = mAuth.currentUser
-        val email = actual?.email
+        val mAuth: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+        val email = mAuth?.email
         identifyUser(email, myRef, click)
     }
 
@@ -112,11 +111,12 @@ class PerfilRegistroFragment : Fragment() {
             override fun onCancelled(error: DatabaseError) {}
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (datasnapshot: DataSnapshot in snapshot.children) {
-                    usuarioPerfil = datasnapshot.getValue(Usuario::class.java)!!
+                    user = datasnapshot.getValue(Usuario::class.java)!!
                     if (isUser(email, myRef, click)) {
                         break
                     }
                 }
+                hideProgressBar(progressBar)
             }
         }
         myRef.addListenerForSingleValueEvent(postListener)
@@ -127,8 +127,7 @@ class PerfilRegistroFragment : Fragment() {
         myRef: DatabaseReference,
         click: Boolean
     ): Boolean {
-        if (usuarioPerfil.correo == email) {
-            perfilID = usuarioPerfil.id.toString()
+        if (user.correo == email) {
             isClickedButton(myRef, click)
             return true
         }
@@ -154,7 +153,7 @@ class PerfilRegistroFragment : Fragment() {
             sp_lugarNacimiento.selectedItem.toString() == "Seleccione una ciudad" ||
             sp_comuna.selectedItem.toString() == "Seleccione la comuna donde vive" ||
             sp_posicion.selectedItem.toString() == "Seleccione su posición habitual" ||
-            usuarioPerfil.foto == ""
+            user.foto == ""
         ) {
             showMessage(requireContext(), "Faltan datos")
         } else {
@@ -196,24 +195,23 @@ class PerfilRegistroFragment : Fragment() {
         return getAge(year, month, day)?.toInt()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun isNewUser() {
-        if (usuarioPerfil.nombre == "") {
-            bt_crear.visibility = View.VISIBLE
-            bt_actualizar.visibility = View.GONE
+        if (user.nombre == "") {
+            bt_actualizar.text = "CREAR"
             ++checkSpinner
         } else {
-            et_nombre.setText(usuarioPerfil.nombre)
-            et_apellido.setText(usuarioPerfil.apellido)
-            et_celular.setText(usuarioPerfil.celular)
-            tv_fechaNacimiento.text = usuarioPerfil.fecha
-            loadDataInSpinner(R.array.lista_ciudades, sp_lugarNacimiento, usuarioPerfil.origen)
-            loadDataInSpinner(R.array.lista_comunas, sp_comuna, usuarioPerfil.comuna)
-            loadDataInSpinner(R.array.lista_posiciones, sp_posicion, usuarioPerfil.posicion)
+            bt_actualizar.text = "ACTUALIZAR"
+            et_nombre.setText(user.nombre)
+            et_apellido.setText(user.apellido)
+            et_celular.setText(user.celular)
+            tv_fechaNacimiento.text = user.fecha
+            loadDataInSpinner(R.array.lista_ciudades, sp_lugarNacimiento, user.origen)
+            loadDataInSpinner(R.array.lista_comunas, sp_comuna, user.comuna)
+            loadDataInSpinner(R.array.lista_posiciones, sp_posicion, user.posicion)
             loadGender()
             loadPhoto()
-            spinnerBarrio(usuarioPerfil.comuna)
-            bt_crear.visibility = View.GONE
-            bt_actualizar.visibility = View.VISIBLE
+            spinnerBarrio(user.comuna)
         }
     }
 
@@ -234,7 +232,7 @@ class PerfilRegistroFragment : Fragment() {
     }
 
     private fun loadGender() {
-        if (usuarioPerfil.genero) {
+        if (user.genero) {
             rSex.check(R.id.rbt_femenino)
         } else {
             rSex.check(R.id.rbt_masculino)
@@ -242,8 +240,8 @@ class PerfilRegistroFragment : Fragment() {
     }
 
     private fun loadPhoto() {
-        if (usuarioPerfil.foto.isNotEmpty()) {
-            Picasso.get().load(usuarioPerfil.foto).into(ibt_foto)
+        if (user.foto.isNotEmpty()) {
+            Picasso.get().load(user.foto).into(ibt_foto)
         }
     }
 
@@ -260,7 +258,8 @@ class PerfilRegistroFragment : Fragment() {
             childUpdate["barrio"] = sp_barrio.selectedItem.toString()
         }
         childUpdate["posicion"] = sp_posicion.selectedItem.toString()
-        usuarioPerfil.id?.let { myRef.child(it).updateChildren(childUpdate) }
+        val idUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        myRef.child(idUser).updateChildren(childUpdate)
         context?.let { showMessage(it, "Cargando datos") }
     }
 
@@ -357,8 +356,8 @@ class PerfilRegistroFragment : Fragment() {
     }
 
     private fun loadBarrio(adapter: ArrayAdapter<CharSequence>) {
-        if (usuarioPerfil.barrio != "") {
-            val compareValue = usuarioPerfil.barrio
+        if (user.barrio != "") {
+            val compareValue = user.barrio
             val spinnerPosition = adapter.getPosition(compareValue)
             sp_barrio.setSelection(spinnerPosition)
         }
@@ -412,7 +411,6 @@ class PerfilRegistroFragment : Fragment() {
         sp_comuna.visibility = View.GONE
         sp_barrio.visibility = View.GONE
         sp_posicion.visibility = View.GONE
-        bt_crear.visibility = View.GONE
         bt_actualizar.visibility = View.GONE
     }
 
@@ -448,7 +446,8 @@ class PerfilRegistroFragment : Fragment() {
 
     private fun savePhotoInStorage(imageBitmap: Bitmap) {
         val mStorage = FirebaseStorage.getInstance()
-        val photoRef = mStorage.reference.child(perfilID)
+        val idUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        val photoRef = mStorage.reference.child(idUser)
         val baos = ByteArrayOutputStream()
         imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
 
@@ -474,8 +473,9 @@ class PerfilRegistroFragment : Fragment() {
                 val urlPhoto = task.result.toString()
                 val database = FirebaseDatabase.getInstance()
                 val myRef = database.getReference("usuarios")
+                val idUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
                 childUpdate["foto"] = urlPhoto
-                myRef.child(perfilID).updateChildren(childUpdate)
+                myRef.child(idUser).updateChildren(childUpdate)
             }
         }
     }

@@ -42,6 +42,9 @@ class NoticiasRVAdapter(
                 "descuento" -> {
                     itemView.iv_situation.setImageResource(R.drawable.ic_sale)
                 }
+                "torneo" -> {
+                    itemView.iv_situation.setImageResource(R.drawable.ic_tournament)
+                }
                 else -> {
                     itemView.iv_situation.setImageResource(R.drawable.ic_stadium)
                 }
