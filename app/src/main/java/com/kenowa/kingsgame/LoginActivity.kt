@@ -31,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
             showProgressBar(progressBar)
             requestLogin()
         }
+        ibt_news.setOnClickListener { goToEspectadorActivity() }
     }
 
     private fun existCurrentUser(user: FirebaseUser?) {
@@ -80,6 +81,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun goToRegistroActivity() {
         startActivity(Intent(this, RegistroActivity::class.java))
+    }
+
+    private fun goToEspectadorActivity() {
+        startActivity(Intent(this, EspectadorActivity::class.java))
     }
 
     private fun identifyError(error: String) {

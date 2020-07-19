@@ -1,7 +1,6 @@
 package com.kenowa.kingsgame.ui.noticia
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +17,6 @@ class NoticiaFragment : Fragment() {
     private var allNews: MutableList<Noticia> = mutableListOf()
     private lateinit var noticiasAdapter: NoticiasRVAdapter
 
-    private var isStarted = false
-    private var progressStatus = 0
-    private var handler: Handler? = null
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,7 +28,6 @@ class NoticiaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        runProgressBar()
         loadNews()
 
         rv_noticias.layoutManager = LinearLayoutManager(
@@ -65,18 +59,5 @@ class NoticiaFragment : Fragment() {
             }
         }
         myRef.addValueEventListener(postListener)
-    }
-
-    @Suppress("DEPRECATION")
-    private fun runProgressBar() {
-        handler = Handler(Handler.Callback {
-            if (isStarted) {
-                progressStatus++
-            }
-            handler?.sendEmptyMessageDelayed(0, 100)
-
-            true
-        })
-        handler?.sendEmptyMessage(0)
     }
 }

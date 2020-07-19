@@ -33,6 +33,14 @@
     <string name="edad2">EDAD</string>
     <string name="origen2">ORIGEN</string>
     <string name="num_edad">21</string>
+    <string name="puntaje">Puntaje</string>
+    <string name="responsable">Responsabilidad</string>
+    <string name="limpio">Juego Limpio</string>
+    <string name="velocidad">Velocidad</string>
+    <string name="salto">Salto</string>
+    <string name="regate">Regate</string>
+    <string name="resistencia">Resistencia</string>
+    <string name="enEquipo">Juego en equipo</string>
 
     <string-array name="lista_ciudades">
         <item>Seleccione una ciudad</item>
@@ -410,7 +418,13 @@
     </string-array>
 
     <string name="menu_equipo">Equipo</string>
-    <string name="msgEquipo">Aparece nombre del equipo, integrantes y calificaciones dadas por otros equipos</string>
+    <string name="msg">Llena los datos de tu perfil para activar este campo</string>
+    <string name="msg1">Solo podrás pertenecer a 2 equipos al mismo tiempo</string>
+    <string name="msg2">
+        Como actualmente puedes pertenecer a otro equipo, te podrán llegar solicitudes de otros equipos para reclutarte.
+        \nAcepta o rechaza según te parezca
+    </string>
+    <string name="bt_crear_equipo">Crea un equipo</string>
 
     <string name="menu_partido">Partido</string>
     <string name="msgPartido">Se puede filtrar la búsqueda de un lugar para reservar y crear un partido</string>

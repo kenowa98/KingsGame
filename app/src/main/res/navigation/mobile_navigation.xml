@@ -32,7 +32,7 @@
         android:id="@+id/nav_perfil_view"
         android:name="com.kenowa.kingsgame.ui.perfil.PerfilViewFragment"
         android:label="@string/menu_perfil"
-        tools:layout="@layout/fragment_perfil_view"></fragment>
+        tools:layout="@layout/fragment_perfil_view" />
 
     <fragment
         android:id="@+id/nav_noticia"
@@ -60,11 +60,7 @@
         android:id="@+id/nav_tu_reserva"
         android:name="com.kenowa.kingsgame.ui.partido.ReservaFragment"
         android:label="@string/menu_reserva"
-        tools:layout="@layout/fragment_reserva">
-        <action
-            android:id="@+id/action_nav_tu_reserva_to_nav_partido"
-            app:destination="@id/nav_partido" />
-    </fragment>
+        tools:layout="@layout/fragment_reserva" />
 
     <fragment
         android:id="@+id/nav_busqueda"

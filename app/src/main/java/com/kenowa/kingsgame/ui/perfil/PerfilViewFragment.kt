@@ -69,6 +69,7 @@ class PerfilViewFragment : Fragment() {
             loadAge(user)
             loadBarrio(user)
             loadPhoto(user)
+            scores()
         }
     }
 
@@ -94,5 +95,15 @@ class PerfilViewFragment : Fragment() {
         val day = fecha.substring(8, 9).toInt()
         val age = getAge(year, month, day)
         tv_edad.text = age
+    }
+
+    private fun scores() {
+        tv_responsable.text = "??/5.0"
+        tv_limpio.text = "??/5.0"
+        tv_velocidad.text = "??/5.0"
+        tv_salto.text = "??/5.0"
+        tv_regate.text = "??/5.0"
+        tv_resistencia.text = "??/5.0"
+        tv_equipo.text = "??/5.0"
     }
 }

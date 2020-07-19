@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kenowa.kingsgame.R
-import com.kenowa.kingsgame.model.Equipo
+import com.kenowa.kingsgame.model.Player
 
 class EquipoRVAdapter(
-    private var equipoList: ArrayList<Equipo>
+    private var playerList: ArrayList<Player>
 ) : RecyclerView.Adapter<EquipoRVAdapter.EquipoViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -19,15 +19,15 @@ class EquipoRVAdapter(
         return EquipoViewHolder(itemView)
     }
 
-    override fun getItemCount(): Int = equipoList.size
+    override fun getItemCount(): Int = playerList.size
 
     override fun onBindViewHolder(holder: EquipoViewHolder, position: Int) {
-        val equipo: Equipo = equipoList[position]
-        holder.bindEquipo(equipo)
+        val player: Player = playerList[position]
+        holder.bindEquipo(player)
     }
 
     class EquipoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindEquipo(equipo: Equipo) {
+        fun bindEquipo(player: Player) {
         }
     }
 }

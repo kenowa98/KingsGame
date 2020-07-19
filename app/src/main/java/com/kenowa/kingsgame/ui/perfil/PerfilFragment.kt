@@ -59,9 +59,10 @@ class PerfilFragment : Fragment() {
         val postListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {}
             override fun onDataChange(snapshot: DataSnapshot) {
+                val userID = FirebaseAuth.getInstance().currentUser?.uid
                 for (datasnapshot: DataSnapshot in snapshot.children) {
                     val user = datasnapshot.getValue(Usuario::class.java)
-                    if (isUser(user)) {
+                    if (isUser(user, userID)) {
                         break
                     }
                 }
@@ -71,8 +72,11 @@ class PerfilFragment : Fragment() {
         myRef.addListenerForSingleValueEvent(postListener)
     }
 
-    private fun isUser(user: Usuario?): Boolean {
-        if (user?.id == FirebaseAuth.getInstance().currentUser?.uid) {
+    private fun isUser(
+        user: Usuario?,
+        id: String?
+    ): Boolean {
+        if (user?.id == id) {
             haveData(user)
             return true
         }

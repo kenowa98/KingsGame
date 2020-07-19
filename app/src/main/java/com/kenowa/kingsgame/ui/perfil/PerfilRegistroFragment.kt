@@ -19,7 +19,6 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -97,22 +96,20 @@ class PerfilRegistroFragment : Fragment() {
     private fun dataUser(click: Boolean) {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("usuarios")
-        val mAuth: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-        val email = mAuth?.email
-        identifyUser(email, myRef, click)
+        identifyUser(myRef, click)
     }
 
     private fun identifyUser(
-        email: String?,
         myRef: DatabaseReference,
         click: Boolean
     ) {
         val postListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {}
             override fun onDataChange(snapshot: DataSnapshot) {
+                val userID = FirebaseAuth.getInstance().currentUser?.uid
                 for (datasnapshot: DataSnapshot in snapshot.children) {
                     user = datasnapshot.getValue(Usuario::class.java)!!
-                    if (isUser(email, myRef, click)) {
+                    if (isUser(myRef, click, userID)) {
                         break
                     }
                 }
@@ -123,11 +120,11 @@ class PerfilRegistroFragment : Fragment() {
     }
 
     private fun isUser(
-        email: String?,
         myRef: DatabaseReference,
-        click: Boolean
+        click: Boolean,
+        id: String?
     ): Boolean {
-        if (user.correo == email) {
+        if (user.id == id) {
             isClickedButton(myRef, click)
             return true
         }
@@ -391,10 +388,8 @@ class PerfilRegistroFragment : Fragment() {
         bt_comenzar.visibility = View.VISIBLE
         et_nombre.visibility = View.GONE
         et_apellido.visibility = View.GONE
-        et_celular.visibility = View.GONE
         linear1.visibility = View.GONE
         linear2.visibility = View.GONE
-        tv1.visibility = View.GONE
         tv2.visibility = View.GONE
         tv3.visibility = View.GONE
         tv4.visibility = View.GONE
@@ -405,8 +400,6 @@ class PerfilRegistroFragment : Fragment() {
         ibt_calendario.visibility = View.GONE
         ibt_foto.visibility = View.GONE
         rSex.visibility = View.GONE
-        rbt_femenino.visibility = View.GONE
-        rbt_masculino.visibility = View.GONE
         sp_lugarNacimiento.visibility = View.GONE
         sp_comuna.visibility = View.GONE
         sp_barrio.visibility = View.GONE

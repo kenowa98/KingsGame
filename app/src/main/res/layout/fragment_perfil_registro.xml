@@ -20,8 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minWidth="50dp"
-            android:minHeight="50dp"
-            android:progressTint="@color/darkviolet" />
+            android:minHeight="50dp" />
 
         <EditText
             android:id="@+id/et_nombre"
@@ -56,7 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/tv1"
@@ -144,7 +144,8 @@
             android:id="@+id/rSex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible">
 
             <RadioButton
                 android:id="@+id/rbt_masculino"

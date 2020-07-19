@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".ui.noticia.NoticiaFragment">
 
@@ -11,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minWidth="50dp"
-        android:minHeight="50dp"
-        android:progressTint="@color/darkviolet" />
+        android:minHeight="50dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_noticias"
