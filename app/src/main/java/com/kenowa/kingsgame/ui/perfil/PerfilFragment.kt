@@ -101,6 +101,7 @@ class PerfilFragment : Fragment() {
     private fun loadData(user: Usuario?) {
         if (user != null) {
             root!!.tv_nombre.text = "${user.nombre} ${user.apellido}"
+            root!!.tv_celular.text = "+57 ${user.celular}"
             root!!.tv_origen.text = user.origen
             root!!.tv_posicion.text = user.posicion
             loadBarrio(user)

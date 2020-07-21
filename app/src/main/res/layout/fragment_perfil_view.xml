@@ -66,7 +66,7 @@
                 android:fontFamily="@font/alfa_slab_one"
                 android:text="@string/apellido"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_nombre"
@@ -75,7 +75,7 @@
                 android:fontFamily="@font/alfa_slab_one"
                 android:text="@string/nombre"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_posicion"

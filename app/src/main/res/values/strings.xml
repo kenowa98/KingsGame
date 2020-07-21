@@ -440,6 +440,7 @@
     <string name="on">ON</string>
     <string name="off">OFF</string>
     <string name="bt_salir_equipo">Salir del equipo</string>
+    <string name="bt_continuar">CONTINUAR</string>
 
     <string name="menu_partido">Partido</string>
     <string name="msgPartido">Se puede filtrar la búsqueda de un lugar para reservar y crear un partido</string>

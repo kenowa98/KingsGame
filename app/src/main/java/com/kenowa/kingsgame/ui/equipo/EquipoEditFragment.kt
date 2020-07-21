@@ -60,23 +60,28 @@ class EquipoEditFragment : Fragment(), EquipoRVAdapter.OnItemClickListener {
         equipoAdapter = EquipoRVAdapter(allPlayers as ArrayList<Usuario>, item, this)
         root!!.rv_players.adapter = equipoAdapter
 
+        configureButtons()
+    }
+
+    private fun configureButtons() {
         root!!.bt_salir.setOnClickListener {
-            val myRef = referenceDatabase("equipos")
-            val userID = FirebaseAuth.getInstance().currentUser?.uid
             val alertDialog: AlertDialog? = activity?.let {
                 val builder = AlertDialog.Builder(it)
                 builder.apply {
                     setMessage("Desea salir del equipo?")
                     setPositiveButton("aceptar") { _, _ ->
-                        myRef.child(idTeam).child(userID!!).removeValue()
                         showProgressBar()
-                        inheritAdmin(myRef)
+                        inheritAdmin()
                     }
                     setNegativeButton("cancelar") { _, _ -> }
                 }
                 builder.create()
             }
             alertDialog?.show()
+        }
+
+        root!!.bt_continuar.setOnClickListener {
+            requireActivity().onBackPressed()
         }
     }
 
@@ -148,7 +153,8 @@ class EquipoEditFragment : Fragment(), EquipoRVAdapter.OnItemClickListener {
         myRef.addListenerForSingleValueEvent(postListener)
     }
 
-    private fun inheritAdmin(myRef: DatabaseReference) {
+    private fun inheritAdmin() {
+        val myRef = referenceDatabase("equipos")
         val postListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {}
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -164,9 +170,18 @@ class EquipoEditFragment : Fragment(), EquipoRVAdapter.OnItemClickListener {
                 }
                 showMessage(requireContext(), "Saliendo de $idTeam")
                 hideProgressBar()
-                requireActivity().onBackPressed()
+                myRef.child(idTeam).child(userID).removeValue()
+                updateView()
             }
         }
-        myRef.addValueEventListener(postListener)
+        myRef.child(idTeam).addValueEventListener(postListener)
+    }
+
+    private fun updateView() {
+        root!!.linear1.visibility = View.GONE
+        root!!.rv_players.visibility = View.GONE
+        root!!.bt_salir.visibility = View.GONE
+        root!!.iv_team.visibility = View.VISIBLE
+        root!!.bt_continuar.visibility = View.VISIBLE
     }
 }

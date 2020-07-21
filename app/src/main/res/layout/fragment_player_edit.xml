@@ -106,14 +106,14 @@
             tools:ignore="ContentDescription" />
 
         <Button
-            android:id="@+id/bt_comenzar"
+            android:id="@+id/bt_continuar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/bt_rounded"
             android:fontFamily="@font/amiko"
-            android:text="@string/bt_comenzar"
+            android:text="@string/bt_continuar"
             android:textSize="30sp"
             android:textStyle="bold"
             android:visibility="gone" />

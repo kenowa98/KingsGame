@@ -16,7 +16,6 @@ import com.kenowa.kingsgame.model.Player
 import com.kenowa.kingsgame.model.Usuario
 import com.kenowa.kingsgame.referenceDatabase
 import com.kenowa.kingsgame.showMessage
-import kotlinx.android.synthetic.main.fragment_player_edit.*
 import kotlinx.android.synthetic.main.fragment_player_edit.view.*
 
 class PlayerEditFragment : Fragment() {
@@ -49,7 +48,7 @@ class PlayerEditFragment : Fragment() {
 
     private fun configureButtons() {
         val myRef = referenceDatabase("equipos")
-        bt_eliminar.setOnClickListener {
+        root!!.bt_eliminar.setOnClickListener {
             val nombre = "${user.nombre} ${user.apellido}"
             val alertDialog: AlertDialog? = activity?.let {
                 val builder = AlertDialog.Builder(it)
@@ -66,7 +65,7 @@ class PlayerEditFragment : Fragment() {
             }
             alertDialog?.show()
         }
-        bt_guardar.setOnClickListener {
+        root!!.bt_guardar.setOnClickListener {
             val alertDialog: AlertDialog? = activity?.let {
                 val builder = AlertDialog.Builder(it)
                 builder.apply {
@@ -83,7 +82,7 @@ class PlayerEditFragment : Fragment() {
             }
             alertDialog?.show()
         }
-        bt_comenzar.setOnClickListener {
+        root!!.bt_continuar.setOnClickListener {
             requireActivity().onBackPressed()
         }
     }
@@ -95,7 +94,7 @@ class PlayerEditFragment : Fragment() {
         root!!.bt_eliminar.visibility = View.GONE
         root!!.bt_guardar.visibility = View.GONE
         root!!.iv_team.visibility = View.VISIBLE
-        root!!.bt_comenzar.visibility = View.VISIBLE
+        root!!.bt_continuar.visibility = View.VISIBLE
     }
 
     private fun hideProgressBar() {

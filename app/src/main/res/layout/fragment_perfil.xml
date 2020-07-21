@@ -89,6 +89,16 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/tv_celular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/amiko"
+                    android:hint="@string/celular"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
                     android:id="@+id/tv_origen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
