@@ -120,7 +120,7 @@ class PlayerEditFragment : Fragment() {
                 hideProgressBar()
             }
         }
-        myRef.child(idTeam).addValueEventListener(postListener)
+        myRef.child(idTeam).addListenerForSingleValueEvent(postListener)
     }
 
     private fun loadAdmin(player: Player?) {

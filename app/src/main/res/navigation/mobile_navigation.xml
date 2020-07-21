@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_nav_equipo_to_nav_equipo_view"
             app:destination="@id/nav_equipo_view" />
+        <action
+            android:id="@+id/action_nav_equipo_to_nav_solicitud"
+            app:destination="@id/nav_solicitud" />
     </fragment>
 
     <fragment
@@ -66,6 +69,10 @@
         <action
             android:id="@+id/action_nav_equipo_edit_to_nav_player_edit"
             app:destination="@id/nav_player_edit" />
+        <argument
+            android:name="admin"
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
 
     <fragment
@@ -94,6 +101,20 @@
         <argument
             android:name="usuario"
             app:argType="com.kenowa.kingsgame.model.Usuario" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_solicitud"
+        android:name="com.kenowa.kingsgame.ui.equipo.SolicitudFragment"
+        android:label="@string/menu_equipo"
+        tools:layout="@layout/fragment_solicitud">
+        <action
+            android:id="@+id/action_nav_solicitud_to_nav_equipo_view"
+            app:destination="@id/nav_equipo_view" />
+        <argument
+            android:name="teams"
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 
     <fragment

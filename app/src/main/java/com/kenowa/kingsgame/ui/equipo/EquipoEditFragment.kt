@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_equipo_edit.view.*
 
 class EquipoEditFragment : Fragment(), EquipoRVAdapter.OnItemClickListener {
     private lateinit var idTeam: String
+    private var admin: Boolean = false
     private var allPlayers: MutableList<Usuario> = mutableListOf()
     private var allID: MutableList<String> = mutableListOf()
     private lateinit var equipoAdapter: EquipoRVAdapter
@@ -45,6 +46,7 @@ class EquipoEditFragment : Fragment(), EquipoRVAdapter.OnItemClickListener {
         arguments?.let {
             val safeArgs = EquipoEditFragmentArgs.fromBundle(it)
             idTeam = safeArgs.team
+            admin = safeArgs.admin
             root!!.tv_team.text = idTeam
         }
 
@@ -86,9 +88,13 @@ class EquipoEditFragment : Fragment(), EquipoRVAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(usuario: Usuario) {
-        val action =
-            EquipoEditFragmentDirections.actionNavEquipoEditToNavPlayerEdit(idTeam, usuario)
-        findNavController().navigate(action)
+        if (admin) {
+            val action =
+                EquipoEditFragmentDirections.actionNavEquipoEditToNavPlayerEdit(idTeam, usuario)
+            findNavController().navigate(action)
+        } else {
+            showMessage(requireContext(), "No tienes permiso para editar")
+        }
     }
 
     private fun showProgressBar() {
@@ -174,7 +180,7 @@ class EquipoEditFragment : Fragment(), EquipoRVAdapter.OnItemClickListener {
                 updateView()
             }
         }
-        myRef.child(idTeam).addValueEventListener(postListener)
+        myRef.child(idTeam).addListenerForSingleValueEvent(postListener)
     }
 
     private fun updateView() {

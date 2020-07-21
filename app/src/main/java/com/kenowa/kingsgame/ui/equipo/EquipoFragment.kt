@@ -1,5 +1,6 @@
 package com.kenowa.kingsgame.ui.equipo
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,11 @@ import java.util.*
 
 class EquipoFragment : Fragment() {
     private lateinit var team1: String
+    private var adminTeam1: Boolean = false
     private lateinit var team2: String
+    private var adminTeam2: Boolean = false
+
+    private var teams: Int = 0
 
     private var usuario = Usuario(id = "")
 
@@ -38,14 +43,31 @@ class EquipoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadFirstView()
+        searchInvitations()
         configureButtons()
 
+    }
 
-        /*val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("equipos")
-        val idUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
+    private fun searchInvitations() {
+        val myRef = referenceDatabase("solicitudes")
+        val postListener = object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {}
 
-        myRef.child("De la Salle").child(idUser).removeValue()*/
+            @SuppressLint("SetTextI18n")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var solicitudes = 0
+                for (datasnapshot: DataSnapshot in snapshot.children) {
+                    ++solicitudes
+                }
+                if (solicitudes == 1) {
+                    root!!.bt_solicitud.text = "Tienes 1 solicitud"
+                } else {
+                    root!!.bt_solicitud.text = "Tienes $solicitudes solicitudes"
+                }
+            }
+        }
+        myRef.child(FirebaseAuth.getInstance().currentUser?.uid.toString())
+            .addListenerForSingleValueEvent(postListener)
     }
 
     private fun configureButtons() {
@@ -65,6 +87,10 @@ class EquipoFragment : Fragment() {
             extra()
             validationsName()
         }
+        root!!.bt_solicitud.setOnClickListener {
+            val action = EquipoFragmentDirections.actionNavEquipoToNavSolicitud(teams)
+            findNavController().navigate(action)
+        }
         root!!.ibt_team.setOnClickListener {
             val action = EquipoFragmentDirections.actionNavEquipoToNavEquipoView(team1)
             findNavController().navigate(action)
@@ -76,11 +102,11 @@ class EquipoFragment : Fragment() {
             showMessage(requireContext(), "Abriendo la vista del equipo...")
         }
         root!!.ibt_edit.setOnClickListener {
-            val action = EquipoFragmentDirections.actionNavEquipoToNavEquipoEdit(team1)
+            val action = EquipoFragmentDirections.actionNavEquipoToNavEquipoEdit(team1, adminTeam1)
             findNavController().navigate(action)
         }
         root!!.ibt_edit2.setOnClickListener {
-            val action = EquipoFragmentDirections.actionNavEquipoToNavEquipoEdit(team2)
+            val action = EquipoFragmentDirections.actionNavEquipoToNavEquipoEdit(team2, adminTeam2)
             findNavController().navigate(action)
         }
     }
@@ -131,6 +157,7 @@ class EquipoFragment : Fragment() {
         } else {
             val myRef = referenceDatabase("equipos")
             root!!.tv_msg1.visibility = View.VISIBLE
+            teams = 0
             identifyTeam(myRef)
         }
     }
@@ -193,17 +220,15 @@ class EquipoFragment : Fragment() {
                 root!!.bt_crear.visibility = View.GONE
                 root!!.linear3.visibility = View.GONE
                 team2 = data["nombre"].toString()
-                if (!(data["admin"] as Boolean)) {
-                    root!!.ibt_edit2.visibility = View.GONE
-                }
+                adminTeam2 = (data["admin"] as Boolean)
+                teams = 2
             }
             2 -> {
                 root!!.linear1.visibility = View.VISIBLE
                 root!!.tv_team.text = data["nombre"].toString()
                 team1 = data["nombre"].toString()
-                if (!(data["admin"] as Boolean)) {
-                    root!!.ibt_edit.visibility = View.GONE
-                }
+                adminTeam1 = (data["admin"] as Boolean)
+                teams = 1
             }
         }
     }

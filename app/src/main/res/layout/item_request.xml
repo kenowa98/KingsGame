@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/beige"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:fontFamily="@font/amiko"
+                android:text="@string/titulo_new"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/amiko"
+                android:text="@string/mensaje_new"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_aceptar"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bt_rounded_green"
+                    android:fontFamily="@font/amiko"
+                    android:text="@string/bt_aceptar"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:id="@+id/bt_rechazar"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bt_rounded_red"
+                    android:fontFamily="@font/amiko"
+                    android:text="@string/bt_rechazar"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="ButtonStyle" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>
