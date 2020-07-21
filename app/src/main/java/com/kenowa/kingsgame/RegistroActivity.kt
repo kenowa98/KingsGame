@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.kenowa.kingsgame.model.Usuario
 import kotlinx.android.synthetic.main.activity_registro.*
 
@@ -75,8 +74,7 @@ class RegistroActivity : AppCompatActivity() {
     }
 
     private fun createUser(email: String) {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("usuarios")
+        val myRef = referenceDatabase("usuarios")
         val idUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
         val user = Usuario(
             id = idUser,

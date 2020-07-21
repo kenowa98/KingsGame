@@ -7,10 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.kenowa.kingsgame.R
 import com.kenowa.kingsgame.hideProgressBar
 import com.kenowa.kingsgame.model.Noticia
+import com.kenowa.kingsgame.referenceDatabase
 import kotlinx.android.synthetic.main.fragment_noticia.*
 
 class NoticiaFragment : Fragment() {
@@ -41,8 +45,7 @@ class NoticiaFragment : Fragment() {
     }
 
     private fun loadNews() {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("noticias")
+        val myRef = referenceDatabase("noticias")
         addNewsOnList(myRef)
     }
 

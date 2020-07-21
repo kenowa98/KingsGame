@@ -2,10 +2,8 @@ package com.kenowa.kingsgame.ui.perfil
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
-import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -20,154 +18,143 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
+import com.kenowa.kingsgame.*
 import com.kenowa.kingsgame.R
-import com.kenowa.kingsgame.getAge
-import com.kenowa.kingsgame.hideProgressBar
 import com.kenowa.kingsgame.model.Usuario
-import com.kenowa.kingsgame.showMessage
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_perfil_registro.*
-import java.io.ByteArrayOutputStream
+import kotlinx.android.synthetic.main.fragment_perfil_registro.view.*
 import java.util.*
 import kotlin.collections.set
 
 @Suppress("DEPRECATION")
 class PerfilRegistroFragment : Fragment() {
-    private lateinit var fechaRegistro: String
-    private var cal = Calendar.getInstance()
-
     private lateinit var user: Usuario
 
     private var checkSpinner = 0
     private val requestImageCapture = 1234
+
+    private var root: View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_perfil_registro, container, false)
+        root = inflater.inflate(R.layout.fragment_perfil_registro, container, false)
+        return root
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dissapearFirstView()
-        configureSpinners(view)
-        dataUser(false)
-        onItemComuna(view.findViewById(R.id.sp_comuna))
-        configureButtons()
+        arguments?.let {
+            val safeArgs = PerfilRegistroFragmentArgs.fromBundle(it)
+            user = safeArgs.usuario
+            isData(view)
+        }
+
+        clickItemComuna(view.findViewById(R.id.sp_comuna))
+        configureButtons(view)
     }
 
-    private fun configureSpinners(view: View) {
-        visualizeSpinner(view.findViewById(R.id.sp_lugarNacimiento), R.array.lista_ciudades)
-        visualizeSpinner(view.findViewById(R.id.sp_comuna), R.array.lista_comunas)
-        visualizeSpinner(view.findViewById(R.id.sp_posicion), R.array.lista_posiciones)
-    }
-
-    private fun visualizeSpinner(
-        spinner: Spinner,
-        lista: Int
-    ) {
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            lista,
-            R.layout.spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
-            spinner.adapter = adapter
+    private fun isData(view: View) {
+        if (user.id.isNullOrEmpty()) {
+            loadPerfil(view)
+        } else {
+            isClickedButton(false, view)
         }
     }
 
+    private fun hideProgressBar() {
+        root!!.progressBar.visibility = View.GONE
+    }
+
+    private fun configureSpinners(view: View) {
+        visualizeSpinner(
+            view.findViewById(R.id.sp_lugarNacimiento),
+            R.array.lista_ciudades,
+            requireContext()
+        )
+        visualizeSpinner(view.findViewById(R.id.sp_comuna), R.array.lista_comunas, requireContext())
+        visualizeSpinner(
+            view.findViewById(R.id.sp_posicion),
+            R.array.lista_posiciones,
+            requireContext()
+        )
+    }
+
     @RequiresApi(Build.VERSION_CODES.N)
-    private fun configureButtons() {
-        ibt_calendario.setOnClickListener { saveDate() }
-        bt_actualizar.setOnClickListener { dataUser(true) }
+    private fun configureButtons(view: View) {
+        ibt_calendario.setOnClickListener { saveDate(tv_fechaNacimiento, requireContext()) }
+        bt_actualizar.setOnClickListener { isClickedButton(true, view) }
         ibt_foto.setOnClickListener { dispatchTakePictureIntent() }
         bt_comenzar.setOnClickListener {
             findNavController().navigate(R.id.action_nav_perfil_registro_to_nav_perfil)
         }
     }
 
-    private fun dataUser(click: Boolean) {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("usuarios")
-        identifyUser(myRef, click)
+    private fun loadPerfil(view: View) {
+        val myRef = referenceDatabase("usuarios")
+        identifyUser(myRef, view)
     }
 
-    private fun identifyUser(
-        myRef: DatabaseReference,
-        click: Boolean
-    ) {
+    private fun identifyUser(myRef: DatabaseReference, view: View) {
         val postListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {}
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userID = FirebaseAuth.getInstance().currentUser?.uid
                 for (datasnapshot: DataSnapshot in snapshot.children) {
-                    user = datasnapshot.getValue(Usuario::class.java)!!
-                    if (isUser(myRef, click, userID)) {
+                    val usuario = datasnapshot.getValue(Usuario::class.java)
+                    if (isUser(usuario?.id, userID)) {
+                        if (usuario != null) {
+                            user = usuario
+                        }
+                        isClickedButton(false, view)
                         break
                     }
                 }
-                hideProgressBar(progressBar)
+                hideProgressBar()
             }
         }
         myRef.addListenerForSingleValueEvent(postListener)
     }
 
-    private fun isUser(
-        myRef: DatabaseReference,
-        click: Boolean,
-        id: String?
-    ): Boolean {
-        if (user.id == id) {
-            isClickedButton(myRef, click)
-            return true
-        }
-        return false
-    }
-
-    private fun isClickedButton(
-        myRef: DatabaseReference,
-        click: Boolean
-    ) {
+    private fun isClickedButton(click: Boolean, view: View) {
         if (click) {
-            isCompleteData(myRef)
+            isCompleteData()
         } else {
-            isNewUser()
+            isNewUser(view)
         }
     }
 
-    private fun isCompleteData(myRef: DatabaseReference) {
-        if (et_nombre.text.toString().isEmpty() ||
-            et_apellido.text.toString().isEmpty() ||
-            et_celular.text.toString().isEmpty() ||
-            tv_fechaNacimiento.text.toString().isEmpty() ||
-            sp_lugarNacimiento.selectedItem.toString() == "Seleccione una ciudad" ||
-            sp_comuna.selectedItem.toString() == "Seleccione la comuna donde vive" ||
-            sp_posicion.selectedItem.toString() == "Seleccione su posición habitual" ||
+    private fun isCompleteData() {
+        if (root!!.et_nombre.text.toString().isEmpty() ||
+            root!!.et_apellido.text.toString().isEmpty() ||
+            root!!.et_celular.text.toString().isEmpty() ||
+            root!!.tv_fechaNacimiento.text.toString().isEmpty() ||
+            root!!.sp_lugarNacimiento.selectedItem.toString() == "Seleccione una ciudad" ||
+            root!!.sp_comuna.selectedItem.toString() == "Seleccione la comuna donde vive" ||
+            root!!.sp_posicion.selectedItem.toString() == "Seleccione su posición habitual" ||
             user.foto == ""
         ) {
             showMessage(requireContext(), "Faltan datos")
         } else {
-            isCorrectPhone(myRef)
+            isCorrectPhone()
         }
     }
 
-    private fun isCorrectPhone(myRef: DatabaseReference) {
-        if (et_celular.text.toString().length != 10) {
+    private fun isCorrectPhone() {
+        if (root!!.et_celular.text.toString().length != 10) {
             showMessage(requireContext(), "El celular debe tener 10 dígitos!")
         } else {
-            validateAge(myRef)
+            validateAge()
         }
     }
 
-    private fun validateAge(myRef: DatabaseReference) {
-        val age = loadAge()
+    private fun validateAge() {
+        val age = getAge(user)?.toInt()
         if (age != null) {
             when {
                 age < 15 -> {
@@ -177,32 +164,92 @@ class PerfilRegistroFragment : Fragment() {
                     showMessage(requireContext(), "Máximo hasta 80 años")
                 }
                 else -> {
-                    updatePerfil(myRef)
-                    disappearAll()
+                    validateName()
                 }
             }
         }
     }
 
-    private fun loadAge(): Int? {
-        val fecha = tv_fechaNacimiento.text.toString()
-        val year = fecha.substring(0, 4).toInt()
-        val month = fecha.substring(5, 7).toInt()
-        val day = fecha.substring(8, 9).toInt()
-        return getAge(year, month, day)?.toInt()
+    private fun validateName() {
+        if (root!!.et_nombre.text.toString().contains(" ")) {
+            showMessage(requireContext(), "Solo se admite 1 nombre y sin espacios")
+        } else {
+            if (root!!.et_nombre.text.toString().length > 12) {
+                showMessage(requireContext(), "El nombre debe tener máximo 12 caracteres")
+            } else {
+                validateLastName()
+            }
+        }
+    }
+
+    private fun validateLastName() {
+        if (root!!.et_apellido.text.toString().length > 12) {
+            showMessage(requireContext(), "El apellido debe tener máximo 12 caracteres")
+        } else {
+            updatePerfil()
+            disappearAll()
+        }
+    }
+
+    private fun updatePerfil() {
+        val myRef = referenceDatabase("usuarios")
+        val childUpdate = HashMap<String, Any>()
+        val nombre = rewriteName()
+        val apellido = rewriteLastName()
+        childUpdate["nombre"] = nombre
+        childUpdate["apellido"] = apellido
+        childUpdate["celular"] = root!!.et_celular.text.toString()
+        childUpdate["fecha"] = root!!.tv_fechaNacimiento.text.toString()
+        childUpdate["genero"] = !root!!.rbt_masculino.isChecked
+        childUpdate["origen"] = root!!.sp_lugarNacimiento.selectedItem.toString()
+        childUpdate["comuna"] = root!!.sp_comuna.selectedItem.toString()
+        if (root!!.sp_comuna.selectedItem.toString() != "Otro") {
+            childUpdate["barrio"] = root!!.sp_barrio.selectedItem.toString()
+        }
+        childUpdate["posicion"] = root!!.sp_posicion.selectedItem.toString()
+        user.id?.let { myRef.child(it).updateChildren(childUpdate) }
+        context?.let { showMessage(it, "Cargando datos...") }
+    }
+
+    private fun rewriteName(): String {
+        var nombre = root!!.et_nombre.text.toString()
+        nombre = nombre[0].toUpperCase() +
+                nombre.substring(1, nombre.length).toLowerCase(Locale.ROOT)
+        return nombre
+    }
+
+    private fun rewriteLastName(): String {
+        val apellido = root!!.et_apellido.text.toString()
+        var first = true
+        var newApellido = ""
+        for (i in apellido) {
+            if (first) {
+                newApellido += i.toUpperCase()
+                first = false
+            } else {
+                if (i == ' ') {
+                    newApellido += i
+                    first = true
+                } else {
+                    newApellido += i.toLowerCase()
+                }
+            }
+        }
+        return newApellido
     }
 
     @SuppressLint("SetTextI18n")
-    private fun isNewUser() {
+    private fun isNewUser(view: View) {
         if (user.nombre == "") {
-            bt_actualizar.text = "CREAR"
+            root!!.bt_actualizar.text = "CREAR"
+            configureSpinners(view)
             ++checkSpinner
         } else {
-            bt_actualizar.text = "ACTUALIZAR"
-            et_nombre.setText(user.nombre)
-            et_apellido.setText(user.apellido)
-            et_celular.setText(user.celular)
-            tv_fechaNacimiento.text = user.fecha
+            root!!.bt_actualizar.text = "ACTUALIZAR"
+            root!!.et_nombre.setText(user.nombre)
+            root!!.et_apellido.setText(user.apellido)
+            root!!.et_celular.setText(user.celular)
+            root!!.tv_fechaNacimiento.text = user.fecha
             loadDataInSpinner(R.array.lista_ciudades, sp_lugarNacimiento, user.origen)
             loadDataInSpinner(R.array.lista_comunas, sp_comuna, user.comuna)
             loadDataInSpinner(R.array.lista_posiciones, sp_posicion, user.posicion)
@@ -210,6 +257,7 @@ class PerfilRegistroFragment : Fragment() {
             loadPhoto()
             spinnerBarrio(user.comuna)
         }
+        hideProgressBar()
     }
 
     private fun loadDataInSpinner(
@@ -217,50 +265,26 @@ class PerfilRegistroFragment : Fragment() {
         spinner: Spinner,
         compareValue: String
     ) {
-        val adapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            lista,
-            R.layout.spinner_item
-        )
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
-        spinner.adapter = adapter
+        val adapter = visualizeSpinner(spinner, lista, requireContext())
         val spinnerPosition = adapter.getPosition(compareValue)
         spinner.setSelection(spinnerPosition)
     }
 
     private fun loadGender() {
         if (user.genero) {
-            rSex.check(R.id.rbt_femenino)
+            root!!.rSex.check(R.id.rbt_femenino)
         } else {
-            rSex.check(R.id.rbt_masculino)
+            root!!.rSex.check(R.id.rbt_masculino)
         }
     }
 
     private fun loadPhoto() {
         if (user.foto.isNotEmpty()) {
-            Picasso.get().load(user.foto).into(ibt_foto)
+            Picasso.get().load(user.foto).into(root!!.ibt_foto)
         }
     }
 
-    private fun updatePerfil(myRef: DatabaseReference) {
-        val childUpdate = HashMap<String, Any>()
-        childUpdate["nombre"] = et_nombre.text.toString()
-        childUpdate["apellido"] = et_apellido.text.toString()
-        childUpdate["celular"] = et_celular.text.toString()
-        childUpdate["fecha"] = tv_fechaNacimiento.text.toString()
-        childUpdate["genero"] = !rbt_masculino.isChecked
-        childUpdate["origen"] = sp_lugarNacimiento.selectedItem.toString()
-        childUpdate["comuna"] = sp_comuna.selectedItem.toString()
-        if (sp_comuna.selectedItem.toString() != "Otro") {
-            childUpdate["barrio"] = sp_barrio.selectedItem.toString()
-        }
-        childUpdate["posicion"] = sp_posicion.selectedItem.toString()
-        val idUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
-        myRef.child(idUser).updateChildren(childUpdate)
-        context?.let { showMessage(it, "Cargando datos") }
-    }
-
-    private fun onItemComuna(spComuna: Spinner) {
+    private fun clickItemComuna(spComuna: Spinner) {
         spComuna.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -268,7 +292,7 @@ class PerfilRegistroFragment : Fragment() {
                 pos: Int,
                 id: Long
             ) {
-                if (++checkSpinner > 2) {
+                if (++checkSpinner > 1) {
                     val item = parent.getItemAtPosition(pos)
                     spinnerBarrio(item)
                 }
@@ -279,10 +303,10 @@ class PerfilRegistroFragment : Fragment() {
 
     private fun spinnerBarrio(item: Any?) {
         if (item != "Seleccione la comuna donde vive" && item != "Otro") {
-            sp_barrio.visibility = View.VISIBLE
+            root!!.sp_barrio.visibility = View.VISIBLE
             identifyListBarrio(item)
         } else {
-            sp_barrio.visibility = View.GONE
+            root!!.sp_barrio.visibility = View.GONE
         }
     }
 
@@ -342,13 +366,7 @@ class PerfilRegistroFragment : Fragment() {
     }
 
     private fun showBarrio(barrio: Int) {
-        val adapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            barrio,
-            R.layout.spinner_item
-        )
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
-        sp_barrio.adapter = adapter
+        val adapter = visualizeSpinner(sp_barrio, barrio, requireContext())
         loadBarrio(adapter)
     }
 
@@ -356,61 +374,32 @@ class PerfilRegistroFragment : Fragment() {
         if (user.barrio != "") {
             val compareValue = user.barrio
             val spinnerPosition = adapter.getPosition(compareValue)
-            sp_barrio.setSelection(spinnerPosition)
+            root!!.sp_barrio.setSelection(spinnerPosition)
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    private fun saveDate() {
-        val dateSetListener =
-            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, month)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-                val format = "yyyy-MM-dd"
-                val simpleDateFormat = SimpleDateFormat(format, Locale.US)
-                fechaRegistro = simpleDateFormat.format(cal.time).toString()
-                tv_fechaNacimiento.text = fechaRegistro
-            }
-
-        DatePickerDialog(
-            requireContext(),
-            dateSetListener,
-            cal.get(Calendar.YEAR),
-            cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH)
-        ).show()
-    }
-
     private fun disappearAll() {
-        iv_team.visibility = View.VISIBLE
-        bt_comenzar.visibility = View.VISIBLE
-        et_nombre.visibility = View.GONE
-        et_apellido.visibility = View.GONE
-        linear1.visibility = View.GONE
-        linear2.visibility = View.GONE
-        tv2.visibility = View.GONE
-        tv3.visibility = View.GONE
-        tv4.visibility = View.GONE
-        tv5.visibility = View.GONE
-        tv6.visibility = View.GONE
-        tv7.visibility = View.GONE
-        tv_fechaNacimiento.visibility = View.GONE
-        ibt_calendario.visibility = View.GONE
-        ibt_foto.visibility = View.GONE
-        rSex.visibility = View.GONE
-        sp_lugarNacimiento.visibility = View.GONE
-        sp_comuna.visibility = View.GONE
-        sp_barrio.visibility = View.GONE
-        sp_posicion.visibility = View.GONE
-        bt_actualizar.visibility = View.GONE
-    }
-
-    private fun dissapearFirstView() {
-        sp_barrio.visibility = View.GONE
-        iv_team.visibility = View.GONE
-        bt_comenzar.visibility = View.GONE
+        root!!.iv_team.visibility = View.VISIBLE
+        root!!.bt_comenzar.visibility = View.VISIBLE
+        root!!.et_nombre.visibility = View.GONE
+        root!!.et_apellido.visibility = View.GONE
+        root!!.linear1.visibility = View.GONE
+        root!!.linear2.visibility = View.GONE
+        root!!.tv2.visibility = View.GONE
+        root!!.tv3.visibility = View.GONE
+        root!!.tv4.visibility = View.GONE
+        root!!.tv5.visibility = View.GONE
+        root!!.tv6.visibility = View.GONE
+        root!!.tv7.visibility = View.GONE
+        root!!.tv_fechaNacimiento.visibility = View.GONE
+        root!!.ibt_calendario.visibility = View.GONE
+        root!!.ibt_foto.visibility = View.GONE
+        root!!.rSex.visibility = View.GONE
+        root!!.sp_lugarNacimiento.visibility = View.GONE
+        root!!.sp_comuna.visibility = View.GONE
+        root!!.sp_barrio.visibility = View.GONE
+        root!!.sp_posicion.visibility = View.GONE
+        root!!.bt_actualizar.visibility = View.GONE
     }
 
     private fun dispatchTakePictureIntent() {
@@ -428,48 +417,15 @@ class PerfilRegistroFragment : Fragment() {
     ) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == requestImageCapture && resultCode == Activity.RESULT_OK) {
-            ibt_foto.isDrawingCacheEnabled = true
-            ibt_foto.buildDrawingCache()
+            root!!.ibt_foto.isDrawingCacheEnabled = true
+            root!!.ibt_foto.buildDrawingCache()
 
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            ibt_foto.setImageBitmap(imageBitmap)
-            savePhotoInStorage(imageBitmap)
-        }
-    }
+            root!!.ibt_foto.setImageBitmap(imageBitmap)
 
-    private fun savePhotoInStorage(imageBitmap: Bitmap) {
-        val mStorage = FirebaseStorage.getInstance()
-        val idUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
-        val photoRef = mStorage.reference.child(idUser)
-        val baos = ByteArrayOutputStream()
-        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
-
-        val data = baos.toByteArray()
-        val uploadTask = photoRef.putBytes(data)
-        uploadPhoto(uploadTask, photoRef)
-    }
-
-    private fun uploadPhoto(
-        uploadTask: UploadTask,
-        photoRef: StorageReference
-    ) {
-        uploadTask.continueWithTask { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
-                }
-            }
-            photoRef.downloadUrl
-        }.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val childUpdate = HashMap<String, Any>()
-                val urlPhoto = task.result.toString()
-                val database = FirebaseDatabase.getInstance()
-                val myRef = database.getReference("usuarios")
-                val idUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
-                childUpdate["foto"] = urlPhoto
-                myRef.child(idUser).updateChildren(childUpdate)
-            }
+            val myRef = FirebaseDatabase.getInstance().getReference("usuarios")
+            val idUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
+            savePhotoInStorage(imageBitmap, idUser, myRef)
         }
     }
 }

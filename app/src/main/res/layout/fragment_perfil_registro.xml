@@ -212,7 +212,8 @@
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/et_rounded" />
+            android:background="@drawable/et_rounded"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv6"
@@ -269,6 +270,7 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:scaleType="fitCenter"
+            android:visibility="gone"
             app:srcCompat="@drawable/team"
             tools:ignore="ContentDescription" />
 
@@ -282,6 +284,7 @@
             android:fontFamily="@font/amiko"
             android:text="@string/bt_comenzar"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
     </LinearLayout>
 </ScrollView>

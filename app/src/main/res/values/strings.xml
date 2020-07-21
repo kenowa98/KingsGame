@@ -421,10 +421,25 @@
     <string name="msg">Llena los datos de tu perfil para activar este campo</string>
     <string name="msg1">Solo podrás pertenecer a 2 equipos al mismo tiempo</string>
     <string name="msg2">
-        Como actualmente puedes pertenecer a otro equipo, te podrán llegar solicitudes de otros equipos para reclutarte.
-        \nAcepta o rechaza según te parezca
+        Como actualmente puedes pertenecer a otro equipo, te podrán llegar solicitudes de otros equipos para reclutarte
     </string>
     <string name="bt_crear_equipo">Crea un equipo</string>
+    <string name="msg3">
+        Un equipo se reconoce oficialmente con mínimo 5 miembros.
+        Puedes tener hasta 25 jugadores en tu equipo.
+    </string>
+    <string name="nombre_equipo">Nombre del equipo</string>
+    <string name="bt_crear">CREAR</string>
+    <string name="bt_cancelar">CANCELAR</string>
+    <string name="portero">Porteros</string>
+    <string name="defensa">Defensas</string>
+    <string name="volante">Volantes</string>
+    <string name="delantero">Delanteros</string>
+    <string name="bt_eliminar">ELIMINAR</string>
+    <string name="admin">Permiso de editar</string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+    <string name="bt_salir_equipo">Salir del equipo</string>
 
     <string name="menu_partido">Partido</string>
     <string name="msgPartido">Se puede filtrar la búsqueda de un lugar para reservar y crear un partido</string>

@@ -8,50 +8,61 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import com.kenowa.kingsgame.R
-import com.kenowa.kingsgame.getAge
-import com.kenowa.kingsgame.hideProgressBar
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.kenowa.kingsgame.*
 import com.kenowa.kingsgame.model.Usuario
-import com.kenowa.kingsgame.showMessage
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_perfil.*
+import kotlinx.android.synthetic.main.fragment_perfil.view.*
 
 class PerfilFragment : Fragment() {
     private var activeView = false
+    private var usuario = Usuario(id = "")
+    private var root: View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_perfil, container, false)
+        root = inflater.inflate(R.layout.fragment_perfil, container, false)
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        iv_foto.visibility = View.GONE
         loadPerfil()
         configureButtons()
     }
 
+    private fun hideProgressBar() {
+        root!!.progressBar.visibility = View.GONE
+    }
+
     private fun configureButtons() {
         ibt_edit.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_perfil_to_nav_perfil_registro)
+            val action = PerfilFragmentDirections.actionNavPerfilToNavPerfilRegistro(usuario)
+            findNavController().navigate(action)
         }
-        ibt_perfil.setOnClickListener {
-            if (activeView) {
-                findNavController().navigate(R.id.action_nav_perfil_to_nav_perfil_view)
-                showMessage(requireContext(), "Abriendo la vista de tu perfil...")
-            } else {
-                showMessage(requireContext(), "Crea tu perfil!")
-            }
+        ibt_perfil.setOnClickListener { haveAccess() }
+    }
+
+    private fun haveAccess() {
+        if (activeView) {
+            val action = PerfilFragmentDirections.actionNavPerfilToNavPerfilView(usuario)
+            findNavController().navigate(action)
+            showMessage(requireContext(), "Abriendo la vista de tu perfil...")
+        } else {
+            showMessage(requireContext(), "Todavía no se puede cargar esta opción")
         }
     }
 
     private fun loadPerfil() {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("usuarios")
+        val myRef = referenceDatabase("usuarios")
+        iv_foto.visibility = View.GONE
         identifyUser(myRef)
     }
 
@@ -62,43 +73,36 @@ class PerfilFragment : Fragment() {
                 val userID = FirebaseAuth.getInstance().currentUser?.uid
                 for (datasnapshot: DataSnapshot in snapshot.children) {
                     val user = datasnapshot.getValue(Usuario::class.java)
-                    if (isUser(user, userID)) {
+                    if (isUser(user?.id, userID)) {
+                        haveData(user)
                         break
                     }
                 }
-                hideProgressBar(progressBar)
+                hideProgressBar()
             }
         }
         myRef.addListenerForSingleValueEvent(postListener)
     }
 
-    private fun isUser(
-        user: Usuario?,
-        id: String?
-    ): Boolean {
-        if (user?.id == id) {
-            haveData(user)
-            return true
-        }
-        return false
-    }
-
     private fun haveData(user: Usuario?) {
         if (user?.nombre != "") {
             loadData(user)
+            if (user != null) {
+                usuario = user
+            }
             activeView = true
         } else {
             showMessage(requireContext(), "Crea tu perfil!")
-            hideProgressBar(progressBar)
+            hideProgressBar()
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun loadData(user: Usuario?) {
         if (user != null) {
-            tv_nombre.text = "${user.nombre} ${user.apellido}"
-            tv_tit_origen.text = user.origen
-            tv_posicion.text = user.posicion
+            root!!.tv_nombre.text = "${user.nombre} ${user.apellido}"
+            root!!.tv_origen.text = user.origen
+            root!!.tv_posicion.text = user.posicion
             loadBarrio(user)
             loadAge(user)
             loadGender(user)
@@ -106,38 +110,34 @@ class PerfilFragment : Fragment() {
         }
     }
 
-    private fun loadPhoto(user: Usuario) {
-        if (user.foto.isNotEmpty()) {
-            iv_foto.visibility = View.VISIBLE
-            Picasso.get().load(user.foto).into(iv_foto)
-        }
-    }
-
     @SuppressLint("SetTextI18n")
     private fun loadBarrio(user: Usuario) {
         if (user.comuna == "Otro") {
-            tv_barrio.text = "Vive fuera de Medellín"
+            root!!.tv_barrio.text = "Vive fuera de Medellín"
         } else {
-            tv_barrio.text = "Vive en el barrio ${user.barrio}"
+            root!!.tv_barrio.text = "Vive en el barrio ${user.barrio}"
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun loadAge(user: Usuario) {
-        val fecha = user.fecha
-        val year = fecha.substring(0, 4).toInt()
-        val month = fecha.substring(5, 7).toInt()
-        val day = fecha.substring(8, 9).toInt()
-        val age = getAge(year, month, day)
-        tv_tit_edad.text = "$age años"
+        val age = getAge(user)
+        root!!.tv_edad.text = "$age años"
     }
 
     @SuppressLint("SetTextI18n")
     private fun loadGender(user: Usuario) {
         if (user.genero) {
-            tv_genero.text = "Femenino"
+            root!!.tv_genero.text = "Femenino"
         } else {
-            tv_genero.text = "Masculino"
+            root!!.tv_genero.text = "Masculino"
+        }
+    }
+
+    private fun loadPhoto(user: Usuario) {
+        if (user.foto.isNotEmpty()) {
+            root!!.iv_foto.visibility = View.VISIBLE
+            Picasso.get().load(user.foto).into(root!!.iv_foto)
         }
     }
 }

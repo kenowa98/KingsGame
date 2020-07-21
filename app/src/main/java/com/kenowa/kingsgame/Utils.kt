@@ -1,12 +1,23 @@
 package com.kenowa.kingsgame
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Context
+import android.graphics.Bitmap
+import android.icu.text.SimpleDateFormat
+import android.os.Build
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
+import com.kenowa.kingsgame.model.Usuario
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 fun showMessage(context: Context, mensaje: String) {
@@ -26,7 +37,11 @@ fun Context.hideKeyboard(view: View) {
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-fun getAge(year: Int, month: Int, day: Int): String? {
+fun getAge(user: Usuario): String? {
+    val fecha = user.fecha
+    val year = fecha.substring(0, 4).toInt()
+    val month = fecha.substring(5, 7).toInt()
+    val day = fecha.substring(8, 9).toInt()
     val dob = Calendar.getInstance()
     val today = Calendar.getInstance()
     dob[year, month] = day
@@ -44,4 +59,85 @@ fun hideProgressBar(progressBar: ProgressBar) {
 
 fun showProgressBar(progressBar: ProgressBar) {
     progressBar.visibility = View.VISIBLE
+}
+
+fun referenceDatabase(nombre: String): DatabaseReference {
+    val database = FirebaseDatabase.getInstance()
+    return database.getReference(nombre)
+}
+
+fun isUser(user: String?, id: String?): Boolean {
+    if (user == id) {
+        return true
+    }
+    return false
+}
+
+fun visualizeSpinner(spinner: Spinner, lista: Int, context: Context): ArrayAdapter<CharSequence> {
+    return ArrayAdapter.createFromResource(
+        context,
+        lista,
+        R.layout.spinner_item
+    ).also { adapter ->
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        spinner.adapter = adapter
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.N)
+fun saveDate(tv_fecha: TextView, context: Context) {
+    val cal = Calendar.getInstance()
+    val dateSetListener =
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, month)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+            val format = "yyyy-MM-dd"
+            val simpleDateFormat = SimpleDateFormat(format, Locale.US)
+            val fechaRegistro = simpleDateFormat.format(cal.time).toString()
+            tv_fecha.text = fechaRegistro
+        }
+
+    DatePickerDialog(
+        context,
+        dateSetListener,
+        cal.get(Calendar.YEAR),
+        cal.get(Calendar.MONTH),
+        cal.get(Calendar.DAY_OF_MONTH)
+    ).show()
+}
+
+fun savePhotoInStorage(imageBitmap: Bitmap, id: String, myRef: DatabaseReference) {
+    val mStorage = FirebaseStorage.getInstance()
+    val photoRef = mStorage.reference.child(id)
+    val baos = ByteArrayOutputStream()
+    imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+
+    val data = baos.toByteArray()
+    val uploadTask = photoRef.putBytes(data)
+    uploadPhoto(uploadTask, photoRef, id, myRef)
+}
+
+private fun uploadPhoto(
+    uploadTask: UploadTask,
+    photoRef: StorageReference,
+    id: String,
+    myRef: DatabaseReference
+) {
+    uploadTask.continueWithTask { task ->
+        if (!task.isSuccessful) {
+            task.exception?.let {
+                throw it
+            }
+        }
+        photoRef.downloadUrl
+    }.addOnCompleteListener { task ->
+        if (task.isSuccessful) {
+            val childUpdate = HashMap<String, Any>()
+            val urlPhoto = task.result.toString()
+            childUpdate["foto"] = urlPhoto
+            myRef.child(id).updateChildren(childUpdate)
+        }
+    }
 }

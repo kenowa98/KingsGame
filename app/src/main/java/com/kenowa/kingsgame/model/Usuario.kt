@@ -1,5 +1,7 @@
 package com.kenowa.kingsgame.model
 
+import java.io.Serializable
+
 class Usuario(
     val id: String? = "",
     val correo: String = "",
@@ -13,4 +15,4 @@ class Usuario(
     val posicion: String = "",
     val barrio: String = "",
     val comuna: String = ""
-)
+) : Serializable

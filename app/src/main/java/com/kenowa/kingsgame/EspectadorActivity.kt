@@ -4,7 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.kenowa.kingsgame.model.Noticia
 import com.kenowa.kingsgame.ui.noticia.NoticiasRVAdapter
 import kotlinx.android.synthetic.main.activity_espectador.*
@@ -30,8 +33,7 @@ class EspectadorActivity : AppCompatActivity() {
     }
 
     private fun loadNews() {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("noticias")
+        val myRef = referenceDatabase("noticias")
         addNewsOnList(myRef)
     }
 

@@ -26,25 +26,75 @@
         <action
             android:id="@+id/action_nav_perfil_registro_to_nav_perfil"
             app:destination="@id/nav_perfil" />
+        <argument
+            android:name="usuario"
+            app:argType="com.kenowa.kingsgame.model.Usuario" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_perfil_view"
         android:name="com.kenowa.kingsgame.ui.perfil.PerfilViewFragment"
         android:label="@string/menu_perfil"
-        tools:layout="@layout/fragment_perfil_view" />
-
-    <fragment
-        android:id="@+id/nav_noticia"
-        android:name="com.kenowa.kingsgame.ui.noticia.NoticiaFragment"
-        android:label="@string/menu_noticia"
-        tools:layout="@layout/fragment_noticia" />
+        tools:layout="@layout/fragment_perfil_view">
+        <argument
+            android:name="usuario"
+            app:argType="com.kenowa.kingsgame.model.Usuario" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_equipo"
         android:name="com.kenowa.kingsgame.ui.equipo.EquipoFragment"
         android:label="@string/menu_equipo"
-        tools:layout="@layout/fragment_equipo" />
+        tools:layout="@layout/fragment_equipo">
+        <action
+            android:id="@+id/action_nav_equipo_to_nav_equipo_edit"
+            app:destination="@id/nav_equipo_edit" />
+        <action
+            android:id="@+id/action_nav_equipo_to_nav_equipo_view"
+            app:destination="@id/nav_equipo_view" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_equipo_edit"
+        android:name="com.kenowa.kingsgame.ui.equipo.EquipoEditFragment"
+        android:label="@string/menu_equipo"
+        tools:layout="@layout/fragment_equipo_edit">
+        <argument
+            android:name="team"
+            android:defaultValue='""'
+            app:argType="string" />
+        <action
+            android:id="@+id/action_nav_equipo_edit_to_nav_player_edit"
+            app:destination="@id/nav_player_edit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_equipo_view"
+        android:name="com.kenowa.kingsgame.ui.equipo.EquipoViewFragment"
+        android:label="@string/menu_equipo"
+        tools:layout="@layout/fragment_equipo_view">
+        <argument
+            android:name="team"
+            android:defaultValue='""'
+            app:argType="string" />
+        <action
+            android:id="@+id/action_nav_equipo_view_to_nav_perfil_view"
+            app:destination="@id/nav_perfil_view" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_player_edit"
+        android:name="com.kenowa.kingsgame.ui.equipo.PlayerEditFragment"
+        android:label="@string/menu_equipo"
+        tools:layout="@layout/fragment_player_edit">
+        <argument
+            android:name="team"
+            android:defaultValue='""'
+            app:argType="string" />
+        <argument
+            android:name="usuario"
+            app:argType="com.kenowa.kingsgame.model.Usuario" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_partido"
@@ -67,6 +117,12 @@
         android:name="com.kenowa.kingsgame.ui.busqueda.BusquedaFragment"
         android:label="@string/menu_busqueda"
         tools:layout="@layout/fragment_busqueda" />
+
+    <fragment
+        android:id="@+id/nav_noticia"
+        android:name="com.kenowa.kingsgame.ui.noticia.NoticiaFragment"
+        android:label="@string/menu_noticia"
+        tools:layout="@layout/fragment_noticia" />
 
     <fragment
         android:id="@+id/nav_ranking"
