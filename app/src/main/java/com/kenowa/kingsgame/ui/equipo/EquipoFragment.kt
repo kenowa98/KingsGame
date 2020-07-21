@@ -180,6 +180,8 @@ class EquipoFragment : Fragment() {
                     root!!.bt_crear.visibility = View.VISIBLE
                     root!!.linear3.visibility = View.VISIBLE
                 }
+                val refUser = referenceDatabase("usuarios")
+                refUser.child(usuario.id!!).child("equipos").setValue(teams)
                 hideProgressBar()
             }
         }

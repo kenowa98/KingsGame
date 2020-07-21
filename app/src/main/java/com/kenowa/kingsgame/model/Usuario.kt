@@ -14,5 +14,6 @@ class Usuario(
     val foto: String = "",
     val posicion: String = "",
     val barrio: String = "",
-    val comuna: String = ""
+    val comuna: String = "",
+    val equipos: Int = 0
 ) : Serializable

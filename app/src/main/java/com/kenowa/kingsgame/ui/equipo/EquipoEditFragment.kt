@@ -82,6 +82,15 @@ class EquipoEditFragment : Fragment(), EquipoRVAdapter.OnItemClickListener {
             alertDialog?.show()
         }
 
+        root!!.bt_reclutar.setOnClickListener {
+            if (admin) {
+                val action = EquipoEditFragmentDirections.actionNavEquipoEditToNavReclutar(idTeam)
+                findNavController().navigate(action)
+            } else {
+                showMessage(requireContext(), "No tienes permiso para editar")
+            }
+        }
+
         root!!.bt_continuar.setOnClickListener {
             requireActivity().onBackPressed()
         }
@@ -186,6 +195,7 @@ class EquipoEditFragment : Fragment(), EquipoRVAdapter.OnItemClickListener {
     private fun updateView() {
         root!!.linear1.visibility = View.GONE
         root!!.rv_players.visibility = View.GONE
+        root!!.bt_reclutar.visibility = View.GONE
         root!!.bt_salir.visibility = View.GONE
         root!!.iv_team.visibility = View.VISIBLE
         root!!.bt_continuar.visibility = View.VISIBLE

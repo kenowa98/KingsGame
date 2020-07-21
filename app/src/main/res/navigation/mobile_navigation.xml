@@ -73,6 +73,9 @@
             android:name="admin"
             android:defaultValue="false"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_nav_equipo_edit_to_nav_reclutar"
+            app:destination="@id/nav_reclutar" />
     </fragment>
 
     <fragment
@@ -115,6 +118,20 @@
             android:name="teams"
             android:defaultValue="0"
             app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_reclutar"
+        android:name="com.kenowa.kingsgame.ui.busqueda.ReclutarFragment"
+        android:label="@string/menu_busqueda"
+        tools:layout="@layout/fragment_reclutar">
+        <argument
+            android:name="team"
+            android:defaultValue='""'
+            app:argType="string" />
+        <action
+            android:id="@+id/action_nav_reclutar_to_nav_perfil_view"
+            app:destination="@id/nav_perfil_view" />
     </fragment>
 
     <fragment

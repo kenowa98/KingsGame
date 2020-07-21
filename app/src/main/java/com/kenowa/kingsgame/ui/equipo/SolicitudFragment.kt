@@ -83,14 +83,14 @@ class SolicitudFragment : Fragment(), SolicitudRVAdapter.OnItemClickListener {
                     )
                     ++numTeams
                     refEquipo.child(nombreTeam).child(userID).setValue(player)
-                    refSolicitud.child(userID).child(request.id).removeValue()
+                    refSolicitud.child(userID).child(request.id_equipo).removeValue()
                     loadRequest()
                 }
             }
             3 -> {
                 val myRef = referenceDatabase("solicitudes")
                 val userID = FirebaseAuth.getInstance().currentUser?.uid.toString()
-                myRef.child(userID).child(request.id).removeValue()
+                myRef.child(userID).child(request.id_equipo).removeValue()
                 loadRequest()
             }
         }

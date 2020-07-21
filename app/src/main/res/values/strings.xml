@@ -444,6 +444,7 @@
     <string name="bt_aceptar">Aceptar</string>
     <string name="bt_rechazar">Rechazar</string>
     <string name="aviso">No hay solicitudes</string>
+    <string name="bt_reclutar">RECLUTAR</string>
 
     <string name="menu_partido">Partido</string>
     <string name="msgPartido">Se puede filtrar la búsqueda de un lugar para reservar y crear un partido</string>
