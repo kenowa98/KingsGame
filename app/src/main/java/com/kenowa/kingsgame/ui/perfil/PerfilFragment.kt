@@ -122,7 +122,7 @@ class PerfilFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun loadAge(user: Usuario) {
-        val age = getAge(user)
+        val age = getAge(user.fecha)
         root!!.tv_edad.text = "$age años"
     }
 

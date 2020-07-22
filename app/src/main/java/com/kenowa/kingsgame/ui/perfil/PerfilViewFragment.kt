@@ -93,7 +93,7 @@ class PerfilViewFragment : Fragment() {
     }
 
     private fun loadAge() {
-        val age = getAge(user)
+        val age = getAge(user.fecha)
         root!!.tv_edad.text = age
     }
 

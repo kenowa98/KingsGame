@@ -30,6 +30,7 @@ import kotlin.collections.set
 @Suppress("DEPRECATION")
 class PerfilRegistroFragment : Fragment() {
     private lateinit var user: Usuario
+    private var flagFoto = false
 
     private var checkSpinner = 0
     private val requestImageCapture = 1234
@@ -60,7 +61,7 @@ class PerfilRegistroFragment : Fragment() {
     }
 
     private fun isData(view: View) {
-        if (user.id.isNullOrEmpty()) {
+        if (user.nombre.isEmpty()) {
             loadPerfil(view)
         } else {
             isClickedButton(false, view)
@@ -130,14 +131,14 @@ class PerfilRegistroFragment : Fragment() {
     }
 
     private fun isCompleteData() {
-        if (root!!.et_nombre.text.toString().isEmpty() ||
-            root!!.et_apellido.text.toString().isEmpty() ||
-            root!!.et_celular.text.toString().isEmpty() ||
-            root!!.tv_fechaNacimiento.text.toString().isEmpty() ||
-            root!!.sp_lugarNacimiento.selectedItem.toString() == "Seleccione una ciudad" ||
-            root!!.sp_comuna.selectedItem.toString() == "Seleccione la comuna donde vive" ||
-            root!!.sp_posicion.selectedItem.toString() == "Seleccione su posición habitual" ||
-            user.foto == ""
+        if (et_nombre.text.toString().isEmpty() ||
+            et_apellido.text.toString().isEmpty() ||
+            et_celular.text.toString().isEmpty() ||
+            tv_fechaNacimiento.text.toString().isEmpty() ||
+            sp_lugarNacimiento.selectedItem.toString() == "Seleccione una ciudad" ||
+            sp_comuna.selectedItem.toString() == "Seleccione la comuna donde vive" ||
+            sp_posicion.selectedItem.toString() == "Seleccione su posición habitual" ||
+            !flagFoto
         ) {
             showMessage(requireContext(), "Faltan datos")
         } else {
@@ -154,7 +155,7 @@ class PerfilRegistroFragment : Fragment() {
     }
 
     private fun validateAge() {
-        val age = getAge(user)?.toInt()
+        val age = getAge(tv_fechaNacimiento.text.toString())?.toInt()
         if (age != null) {
             when {
                 age < 15 -> {
@@ -250,12 +251,13 @@ class PerfilRegistroFragment : Fragment() {
             root!!.et_apellido.setText(user.apellido)
             root!!.et_celular.setText(user.celular)
             root!!.tv_fechaNacimiento.text = user.fecha
-            loadDataInSpinner(R.array.lista_ciudades, sp_lugarNacimiento, user.origen)
-            loadDataInSpinner(R.array.lista_comunas, sp_comuna, user.comuna)
-            loadDataInSpinner(R.array.lista_posiciones, sp_posicion, user.posicion)
+            loadDataInSpinner(R.array.lista_ciudades, root!!.sp_lugarNacimiento, user.origen)
+            loadDataInSpinner(R.array.lista_comunas, root!!.sp_comuna, user.comuna)
+            loadDataInSpinner(R.array.lista_posiciones, root!!.sp_posicion, user.posicion)
             loadGender()
             loadPhoto()
             spinnerBarrio(user.comuna)
+            flagFoto = true
         }
         hideProgressBar()
     }
@@ -366,7 +368,7 @@ class PerfilRegistroFragment : Fragment() {
     }
 
     private fun showBarrio(barrio: Int) {
-        val adapter = visualizeSpinner(sp_barrio, barrio, requireContext())
+        val adapter = visualizeSpinner(root!!.sp_barrio, barrio, requireContext())
         loadBarrio(adapter)
     }
 
@@ -426,6 +428,7 @@ class PerfilRegistroFragment : Fragment() {
             val myRef = FirebaseDatabase.getInstance().getReference("usuarios")
             val idUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
             savePhotoInStorage(imageBitmap, idUser, myRef)
+            flagFoto = true
         }
     }
 }

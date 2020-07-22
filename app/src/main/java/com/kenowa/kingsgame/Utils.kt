@@ -16,7 +16,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
-import com.kenowa.kingsgame.model.Usuario
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -37,8 +36,7 @@ fun Context.hideKeyboard(view: View) {
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-fun getAge(user: Usuario): String? {
-    val fecha = user.fecha
+fun getAge(fecha: String): String? {
     val year = fecha.substring(0, 4).toInt()
     val month = fecha.substring(5, 7).toInt()
     val day = fecha.substring(8, 9).toInt()
