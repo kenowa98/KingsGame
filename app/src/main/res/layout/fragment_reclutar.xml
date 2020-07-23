@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="4dp"
     android:background="@color/white"
     tools:context=".ui.busqueda.ReclutarFragment">
 
@@ -19,15 +20,138 @@
             android:minWidth="50dp"
             android:minHeight="50dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/francois_one"
+            android:text="@string/tit_reclutar"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <Spinner
+            android:id="@+id/sp_posicion"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/et_rounded"
+            android:entries="@array/reclutar_posiciones" />
+
+        <Spinner
+            android:id="@+id/sp_comuna"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/et_rounded"
+            android:entries="@array/reclutar_comunas" />
+
+        <Spinner
+            android:id="@+id/sp_barrio"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/et_rounded"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_aviso"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.3"
+            android:text="@string/aviso2"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:visibility="visible" />
+
+        <RadioGroup
+            android:id="@+id/rOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <RadioButton
+                android:id="@+id/rbt_si"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:fontFamily="@font/amiko"
+                android:text="@string/si"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rbt_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/amiko"
+                android:text="@string/no"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.3"
+                android:text="@string/edad"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_edadMin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:fontFamily="@font/amiko"
+                android:hint="@string/edad_min"
+                android:inputType="number"
+                android:textSize="18sp"
+                tools:ignore="Autofill" />
+
+            <EditText
+                android:id="@+id/et_edadMax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:fontFamily="@font/amiko"
+                android:hint="@string/edad_max"
+                android:inputType="number"
+                tools:ignore="Autofill" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_actualizar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bt_rounded"
+            android:fontFamily="@font/amiko"
+            android:text="@string/bt_filtrar"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_players"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp"
-            tools:listitem="@layout/item_reclutar" />
+            tools:listitem="@layout/item_reclutar">
+
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </ScrollView>

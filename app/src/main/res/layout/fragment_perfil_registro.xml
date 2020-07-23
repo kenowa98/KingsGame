@@ -144,8 +144,7 @@
             android:id="@+id/rSex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="visible">
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/rbt_masculino"

@@ -89,6 +89,27 @@
         <item>Villa Hermosa</item>
     </string-array>
 
+    <string-array name="reclutar_comunas">
+        <item>Seleccione una comuna</item>
+        <item>Otro</item>
+        <item>Aranjuez</item>
+        <item>Belén</item>
+        <item>Buenos Aires</item>
+        <item>Castilla</item>
+        <item>Doce de Octubre</item>
+        <item>El Poblado</item>
+        <item>Guayabal</item>
+        <item>La América</item>
+        <item>La Candelaria</item>
+        <item>Laureles-Estadio</item>
+        <item>Manrique</item>
+        <item>Popular</item>
+        <item>Robledo</item>
+        <item>San Javier</item>
+        <item>Santa Cruz</item>
+        <item>Villa Hermosa</item>
+    </string-array>
+
     <string-array name="Aranjuez">
         <item>Aranjuez</item>
         <item>Berlín</item>
@@ -417,34 +438,50 @@
         <item>Segundo Delantero</item>
     </string-array>
 
+    <string-array name="reclutar_posiciones">
+        <item>Seleccione una posición</item>
+        <item>Arquero</item>
+        <item>Defensa</item>
+        <item>Volante</item>
+        <item>Delantero</item>
+    </string-array>
+
     <string name="menu_equipo">Equipo</string>
+    <string name="bt_crear">CREAR</string>
+    <string name="bt_cancelar">CANCELAR</string>
+    <string name="bt_eliminar">ELIMINAR</string>
+    <string name="bt_crear_equipo">Crea un equipo</string>
     <string name="msg">Llena los datos de tu perfil para activar este campo</string>
     <string name="msg1">Solo podrás pertenecer a 2 equipos al mismo tiempo</string>
     <string name="msg2">
         Como actualmente puedes pertenecer a otro equipo, te podrán llegar solicitudes de otros equipos para reclutarte
     </string>
-    <string name="bt_crear_equipo">Crea un equipo</string>
     <string name="msg3">
         Un equipo se reconoce oficialmente con mínimo 5 miembros.
         Puedes tener hasta 25 jugadores en tu equipo.
     </string>
     <string name="nombre_equipo">Nombre del equipo</string>
-    <string name="bt_crear">CREAR</string>
-    <string name="bt_cancelar">CANCELAR</string>
     <string name="portero">Porteros</string>
     <string name="defensa">Defensas</string>
     <string name="volante">Volantes</string>
     <string name="delantero">Delanteros</string>
-    <string name="bt_eliminar">ELIMINAR</string>
+
     <string name="admin">Permiso de editar</string>
     <string name="on">ON</string>
     <string name="off">OFF</string>
+    <string name="si">Sí</string>
+    <string name="no">No</string>
     <string name="bt_salir_equipo">Salir del equipo</string>
     <string name="bt_continuar">CONTINUAR</string>
     <string name="bt_aceptar">Aceptar</string>
     <string name="bt_rechazar">Rechazar</string>
-    <string name="aviso">No hay solicitudes</string>
     <string name="bt_reclutar">RECLUTAR</string>
+    <string name="bt_filtrar">FILTRAR</string>
+    <string name="aviso">No hay solicitudes</string>
+    <string name="aviso2">Tomar en cuenta la selección del barrio</string>
+    <string name="tit_reclutar">Filtra tu búsqueda</string>
+    <string name="edad_min">De</string>
+    <string name="edad_max">Hasta</string>
 
     <string name="menu_partido">Partido</string>
     <string name="msgPartido">Se puede filtrar la búsqueda de un lugar para reservar y crear un partido</string>
@@ -454,12 +491,16 @@
     <string name="titulo_fecha">Fecha</string>
 
     <string name="menu_busqueda">Búsqueda</string>
-    <string name="msgBusqueda">Hay la opción de filtrar la búsqueda de jugadores o equipos para reclutar, retar, invitar a jugar, entre otras opciones</string>
+    <string name="msgBusqueda">
+        Hay la opción de filtrar la búsqueda de jugadores o equipos para reclutar, retar, invitar a jugar, entre otras opciones
+    </string>
 
     <string name="menu_noticia">Noticias</string>
 
     <string name="menu_ranking">Ranking</string>
-    <string name="msgRanking">Se muestra el top10, la posición del equipo del usuario y el equipo que está por encima de su equipo</string>
+    <string name="msgRanking">
+        Se muestra el top10, la posición del equipo del usuario y el equipo que está por encima de su equipo
+    </string>
 
     <string name="titulo_new">Título</string>
     <string name="mensaje_new">Mensaje</string>
