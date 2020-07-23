@@ -74,8 +74,7 @@ class EquipoFragment : Fragment() {
         root!!.bt_crear.setOnClickListener {
             root!!.tv_msg3.visibility = View.VISIBLE
             root!!.et_nombre.visibility = View.VISIBLE
-            root!!.bt_crear2.visibility = View.VISIBLE
-            root!!.bt_cancelar.visibility = View.VISIBLE
+            root!!.linear4.visibility = View.VISIBLE
             root!!.bt_crear.visibility = View.GONE
             root!!.linear3.visibility = View.GONE
         }
@@ -303,10 +302,9 @@ class EquipoFragment : Fragment() {
     private fun reloadFragment() {
         root!!.tv_msg3.visibility = View.GONE
         root!!.et_nombre.visibility = View.GONE
-        root!!.bt_crear2.visibility = View.GONE
-        root!!.bt_cancelar.visibility = View.GONE
         root!!.linear1.visibility = View.GONE
         root!!.linear2.visibility = View.GONE
+        root!!.linear4.visibility = View.GONE
         root!!.et_nombre.setText("")
         haveData()
     }

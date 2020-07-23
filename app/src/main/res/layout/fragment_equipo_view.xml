@@ -31,7 +31,7 @@
             android:text="@string/titulo_new"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="28sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             android:fontFamily="@font/francois_one"
             android:text="@string/portero"
             android:textColor="@color/black"
-            android:textSize="28sp" />
+            android:textSize="24sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_goalkeeper"
@@ -64,7 +64,7 @@
             android:fontFamily="@font/francois_one"
             android:text="@string/defensa"
             android:textColor="@color/black"
-            android:textSize="28sp" />
+            android:textSize="24sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_defender"
@@ -86,7 +86,7 @@
             android:fontFamily="@font/francois_one"
             android:text="@string/volante"
             android:textColor="@color/black"
-            android:textSize="28sp" />
+            android:textSize="24sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_midfield"
@@ -108,7 +108,7 @@
             android:fontFamily="@font/francois_one"
             android:text="@string/delantero"
             android:textColor="@color/black"
-            android:textSize="28sp" />
+            android:textSize="24sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_striker"

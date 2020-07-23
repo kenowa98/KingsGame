@@ -183,9 +183,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/white"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView1">
@@ -199,11 +202,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:fontFamily="@font/amiko"
                     android:text="@string/responsable"
                     android:textColor="@color/black"
-                    android:textSize="24sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_responsable"
@@ -212,7 +216,6 @@
                     android:layout_weight="2"
                     android:fontFamily="@font/amiko"
                     android:text="@string/puntaje"
-                    android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -227,11 +230,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:fontFamily="@font/amiko"
                     android:text="@string/limpio"
                     android:textColor="@color/black"
-                    android:textSize="24sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_limpio"
@@ -240,7 +244,6 @@
                     android:layout_weight="2"
                     android:fontFamily="@font/amiko"
                     android:text="@string/puntaje"
-                    android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -255,11 +258,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:fontFamily="@font/amiko"
                     android:text="@string/velocidad"
                     android:textColor="@color/black"
-                    android:textSize="24sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_velocidad"
@@ -268,7 +272,6 @@
                     android:layout_weight="2"
                     android:fontFamily="@font/amiko"
                     android:text="@string/puntaje"
-                    android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -283,11 +286,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:fontFamily="@font/amiko"
                     android:text="@string/salto"
                     android:textColor="@color/black"
-                    android:textSize="24sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_salto"
@@ -296,7 +300,6 @@
                     android:layout_weight="2"
                     android:fontFamily="@font/amiko"
                     android:text="@string/puntaje"
-                    android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -311,11 +314,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:fontFamily="@font/amiko"
                     android:text="@string/regate"
                     android:textColor="@color/black"
-                    android:textSize="24sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_regate"
@@ -324,7 +328,6 @@
                     android:layout_weight="2"
                     android:fontFamily="@font/amiko"
                     android:text="@string/puntaje"
-                    android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -339,11 +342,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:fontFamily="@font/amiko"
                     android:text="@string/resistencia"
                     android:textColor="@color/black"
-                    android:textSize="24sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_resistencia"
@@ -352,7 +356,6 @@
                     android:layout_weight="2"
                     android:fontFamily="@font/amiko"
                     android:text="@string/puntaje"
-                    android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -367,11 +370,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:fontFamily="@font/amiko"
                     android:text="@string/enEquipo"
                     android:textColor="@color/black"
-                    android:textSize="24sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_equipo"
@@ -380,7 +384,6 @@
                     android:layout_weight="2"
                     android:fontFamily="@font/amiko"
                     android:text="@string/puntaje"
-                    android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold" />

@@ -471,7 +471,7 @@
     <string name="off">OFF</string>
     <string name="si">Sí</string>
     <string name="no">No</string>
-    <string name="bt_salir_equipo">Salir del equipo</string>
+    <string name="bt_salir_equipo">SALIR</string>
     <string name="bt_continuar">CONTINUAR</string>
     <string name="bt_aceptar">Aceptar</string>
     <string name="bt_rechazar">Rechazar</string>

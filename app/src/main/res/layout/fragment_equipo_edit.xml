@@ -29,40 +29,34 @@
             <TextView
                 android:id="@+id/tv_team"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="4dp"
-                android:layout_marginBottom="4dp"
                 android:layout_weight="1"
-                android:fontFamily="@font/francois_one"
-                android:gravity="center_vertical"
+                android:fontFamily="@font/alfa_slab_one"
                 android:text="@string/titulo_new"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                android:layout_weight="1.6"
+                android:layout_weight="2.5"
                 android:gravity="right"
                 android:orientation="horizontal"
-                android:textAlignment="gravity"
                 tools:ignore="RtlHardcoded">
 
                 <ImageButton
                     android:id="@+id/ibt_edit"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginEnd="8dp"
                     android:background="@drawable/bt_edit"
                     android:scaleType="center"
                     android:src="@drawable/ic_edit"
-                    android:visibility="visible"
                     tools:ignore="ContentDescription" />
             </LinearLayout>
+
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -78,21 +72,23 @@
 
         <Button
             android:id="@+id/bt_reclutar"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="4dp"
             android:background="@drawable/bt_rounded"
             android:fontFamily="@font/amiko"
             android:text="@string/bt_reclutar"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/bt_salir"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="4dp"
@@ -100,7 +96,7 @@
             android:background="@drawable/bt_rounded_red"
             android:fontFamily="@font/amiko"
             android:text="@string/bt_salir_equipo"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -116,9 +112,9 @@
             android:id="@+id/bt_continuar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginRight="4dp"
+            android:layout_marginRight="8dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/bt_rounded"
             android:fontFamily="@font/amiko"

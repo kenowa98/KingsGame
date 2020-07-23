@@ -175,15 +175,16 @@
 
         <Button
             android:id="@+id/bt_crear"
-            android:layout_width="match_parent"
+            android:layout_width="210dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="4dp"
             android:background="@drawable/bt_rounded"
             android:fontFamily="@font/amiko"
             android:text="@string/bt_crear_equipo"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="gone" />
 
@@ -215,33 +216,39 @@
             android:visibility="gone"
             tools:ignore="Autofill" />
 
-        <Button
-            android:id="@+id/bt_crear2"
+        <LinearLayout
+            android:id="@+id/linear4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/bt_rounded"
-            android:fontFamily="@font/amiko"
-            android:text="@string/bt_crear"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:visibility="gone" />
+            android:layout_margin="8dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-        <Button
-            android:id="@+id/bt_cancelar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/bt_rounded"
-            android:fontFamily="@font/amiko"
-            android:text="@string/bt_cancelar"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:visibility="gone" />
+            <Button
+                android:id="@+id/bt_crear2"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bt_rounded_green"
+                android:fontFamily="@font/amiko"
+                android:text="@string/bt_crear"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/bt_cancelar"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/bt_rounded_red"
+                android:fontFamily="@font/amiko"
+                android:text="@string/bt_cancelar"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="ButtonStyle" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linear3"
