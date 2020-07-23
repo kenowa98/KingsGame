@@ -484,11 +484,11 @@
     <string name="edad_max">Hasta</string>
 
     <string name="menu_partido">Partido</string>
-    <string name="msgPartido">Se puede filtrar la búsqueda de un lugar para reservar y crear un partido</string>
-    <string name="bt_tu_reserva">Mira tus reservas</string>
-
-    <string name="menu_reserva">Tus reservaciones</string>
+    <string name="aviso_reserva">No hay reservas</string>
+    <string name="aviso_lugar">Selecciona un lugar</string>
     <string name="titulo_fecha">Fecha</string>
+    <!--<string name="bt_crear_partido">Crea un partido</string>-->
+    <string name="bt_crear_partido">Busca un lugar</string>
 
     <string name="menu_busqueda">Búsqueda</string>
     <string name="msgBusqueda">

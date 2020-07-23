@@ -140,15 +140,24 @@
         android:label="@string/menu_partido"
         tools:layout="@layout/fragment_partido">
         <action
-            android:id="@+id/action_nav_partido_to_nav_tu_reserva"
-            app:destination="@id/nav_tu_reserva" />
+            android:id="@+id/action_nav_partido_to_nav_reserva"
+            app:destination="@id/nav_reserva" />
+        <action
+            android:id="@+id/action_nav_partido_to_nav_mapa"
+            app:destination="@id/nav_mapa" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_tu_reserva"
+        android:id="@+id/nav_reserva"
         android:name="com.kenowa.kingsgame.ui.partido.ReservaFragment"
-        android:label="@string/menu_reserva"
+        android:label="@string/menu_partido"
         tools:layout="@layout/fragment_reserva" />
+
+    <fragment
+        android:id="@+id/nav_mapa"
+        android:name="com.kenowa.kingsgame.ui.partido.MapsFragment"
+        android:label="@string/menu_partido"
+        tools:layout="@layout/fragment_maps" />
 
     <fragment
         android:id="@+id/nav_busqueda"
