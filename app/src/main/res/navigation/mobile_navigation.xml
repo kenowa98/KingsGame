@@ -27,7 +27,7 @@
             android:id="@+id/action_nav_perfil_registro_to_nav_perfil"
             app:destination="@id/nav_perfil" />
         <argument
-            android:name="usuario"
+            android:name="user"
             app:argType="com.kenowa.kingsgame.model.Usuario" />
     </fragment>
 
@@ -37,7 +37,7 @@
         android:label="@string/menu_perfil"
         tools:layout="@layout/fragment_perfil_view">
         <argument
-            android:name="usuario"
+            android:name="user"
             app:argType="com.kenowa.kingsgame.model.Usuario" />
     </fragment>
 

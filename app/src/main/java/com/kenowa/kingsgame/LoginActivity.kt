@@ -21,7 +21,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        hideProgressBar(progressBar)
         configureButtons()
     }
 
@@ -36,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun existCurrentUser(user: FirebaseUser?) {
         if (user != null) {
+            showProgressBar(progressBar)
             goToMainActivity()
         }
     }

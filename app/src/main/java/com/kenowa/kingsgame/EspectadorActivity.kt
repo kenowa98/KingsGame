@@ -49,7 +49,7 @@ class EspectadorActivity : AppCompatActivity() {
                 noticiasAdapter.notifyDataSetChanged()
             }
         }
-        myRef.addValueEventListener(postListener)
+        myRef.addListenerForSingleValueEvent(postListener)
     }
 
     private fun filterNews(noticia: Noticia?) {

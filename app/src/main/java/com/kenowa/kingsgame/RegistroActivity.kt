@@ -13,7 +13,6 @@ class RegistroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
 
-        hideProgressBar(progressBar)
         bt_guardar.setOnClickListener { fullRegister() }
     }
 
