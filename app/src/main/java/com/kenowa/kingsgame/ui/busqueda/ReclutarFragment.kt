@@ -5,20 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
-import com.kenowa.kingsgame.R
+import com.kenowa.kingsgame.*
 import com.kenowa.kingsgame.model.Player
 import com.kenowa.kingsgame.model.Solicitud
 import com.kenowa.kingsgame.model.Usuario
-import com.kenowa.kingsgame.referenceDatabase
-import com.kenowa.kingsgame.showMessage
+import kotlinx.android.synthetic.main.fragment_reclutar.*
 import kotlinx.android.synthetic.main.fragment_reclutar.view.*
 
 class ReclutarFragment : Fragment(), ReclutarRVAdapter.OnItemClickListener {
@@ -26,7 +26,7 @@ class ReclutarFragment : Fragment(), ReclutarRVAdapter.OnItemClickListener {
     private var allPlayer: MutableList<Usuario> = mutableListOf()
     private var allID: MutableList<String> = mutableListOf()
     private lateinit var playerAdapter: ReclutarRVAdapter
-
+    private var players = 0
     private var root: View? = null
 
     override fun onCreateView(
@@ -46,19 +46,24 @@ class ReclutarFragment : Fragment(), ReclutarRVAdapter.OnItemClickListener {
         }
 
         loadPlayers()
+        configureSpinners()
 
-        root!!.rv_players.layoutManager = LinearLayoutManager(
+        root?.rv_players?.layoutManager = LinearLayoutManager(
             requireContext(),
             RecyclerView.HORIZONTAL,
             false
         )
 
         playerAdapter = ReclutarRVAdapter(allPlayer as ArrayList<Usuario>, this)
-        root!!.rv_players.adapter = playerAdapter
-    }
+        root?.rv_players?.adapter = playerAdapter
 
-    private fun hideProgressBar() {
-        root!!.progressBar.visibility = View.GONE
+        bt_filtrar.setOnClickListener {
+            root?.progressBar?.let { it1 -> showProgressBar(it1) }
+            loadPlayers()
+            hideKeyboard()
+        }
+
+        root?.sp_comuna?.let { clickItemComuna(it) }
     }
 
     override fun onItemClick(usuario: Usuario, case: Int) {
@@ -86,13 +91,14 @@ class ReclutarFragment : Fragment(), ReclutarRVAdapter.OnItemClickListener {
     }
 
     private fun loadPlayers() {
-        val myRef = referenceDatabase("equipos")
         allPlayer.clear()
         allID.clear()
-        searchMembers(myRef)
+        players = 0
+        searchMembers()
     }
 
-    private fun searchMembers(myRef: DatabaseReference) {
+    private fun searchMembers() {
+        val myRef = referenceDatabase("equipos")
         val postListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {}
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -107,12 +113,11 @@ class ReclutarFragment : Fragment(), ReclutarRVAdapter.OnItemClickListener {
     }
 
     private fun loadFreePlayers() {
-        val myRef = referenceDatabase("usuarios")
-        println(allID)
-        searchFreePlayers(myRef)
+        searchFreePlayers()
     }
 
-    private fun searchFreePlayers(myRef: DatabaseReference) {
+    private fun searchFreePlayers() {
+        val myRef = referenceDatabase("usuarios")
         val postListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {}
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -120,7 +125,13 @@ class ReclutarFragment : Fragment(), ReclutarRVAdapter.OnItemClickListener {
                     val user = datasnapshot.getValue(Usuario::class.java)
                     isFree(user)
                 }
-                hideProgressBar()
+                if (players == 0) {
+                    root?.tv_aviso?.visibility = View.VISIBLE
+                } else {
+                    root?.tv_aviso?.visibility = View.GONE
+                }
+                hideProgressBar(root?.progressBar!!)
+                playerAdapter.notifyDataSetChanged()
             }
         }
         myRef.addListenerForSingleValueEvent(postListener)
@@ -128,12 +139,185 @@ class ReclutarFragment : Fragment(), ReclutarRVAdapter.OnItemClickListener {
 
     private fun isFree(user: Usuario?) {
         if (!allID.contains(user?.id)) {
-            if (user?.nombre != "") {
-                if (user?.equipos!! < 2) {
-                    allPlayer.add(user)
-                    playerAdapter.notifyDataSetChanged()
+            haveData(user)
+        }
+    }
+
+    private fun haveData(user: Usuario?) {
+        if (user?.nombre != "") {
+            limitTeams(user)
+        }
+    }
+
+    private fun limitTeams(user: Usuario?) {
+        if (user?.equipos!! < 2) {
+            havePosicion(user)
+        }
+    }
+
+    private fun havePosicion(user: Usuario?) {
+        if (root?.sp_posicion?.selectedItem.toString() == "Seleccione una posición") {
+            haveComuna(user)
+        } else {
+            if (user?.posicion == root?.sp_posicion?.selectedItem.toString()) {
+                haveComuna(user)
+            }
+        }
+    }
+
+    private fun haveComuna(user: Usuario?) {
+        if (root?.sp_comuna?.selectedItem.toString() == "Seleccione una comuna") {
+            haveEdadMin(user)
+        } else {
+            if (user?.comuna == root?.sp_comuna?.selectedItem.toString()) {
+                enableBarrio(user)
+            }
+        }
+    }
+
+    private fun enableBarrio(user: Usuario?) {
+        if (root?.rbt_si?.isChecked!!) {
+            haveBarrio(user)
+        } else {
+            haveEdadMin(user)
+        }
+    }
+
+    private fun haveBarrio(user: Usuario?) {
+        if (user?.barrio == root?.sp_barrio?.selectedItem.toString()) {
+            haveEdadMin(user)
+        }
+    }
+
+    private fun haveEdadMin(user: Usuario?) {
+        val age = user?.fecha?.let { getAge(it) }?.toInt()
+        if (et_edadMin.text.toString().isEmpty()) {
+            if (age != null) {
+                haveEdadMax(user, age)
+            }
+        } else {
+            if (age != null) {
+                if (age >= et_edadMin.text.toString().toInt()) {
+                    haveEdadMax(user, age)
                 }
             }
         }
+    }
+
+    private fun haveEdadMax(
+        user: Usuario?,
+        age: Int
+    ) {
+        if (et_edadMax.text.toString().isEmpty()) {
+            addUser(user)
+        } else {
+            if (age <= et_edadMax.text.toString().toInt()) {
+                addUser(user)
+            }
+        }
+    }
+
+    private fun addUser(user: Usuario?) {
+        if (user != null) {
+            allPlayer.add(user)
+            ++players
+        }
+    }
+
+    private fun configureSpinners() {
+        visualizeSpinner(
+            root?.sp_posicion!!,
+            R.array.reclutar_posiciones,
+            requireContext()
+        )
+        visualizeSpinner(
+            root?.sp_comuna!!,
+            R.array.reclutar_comunas,
+            requireContext()
+        )
+    }
+
+    private fun clickItemComuna(spComuna: Spinner) {
+        spComuna.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                pos: Int,
+                id: Long
+            ) {
+                val item = parent.getItemAtPosition(pos)
+                spinnerBarrio(item)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun spinnerBarrio(item: Any?) {
+        if (item != "Seleccione una comuna" && item != "Otro") {
+            root?.sp_barrio?.visibility = View.VISIBLE
+            root?.tv_msg?.visibility = View.VISIBLE
+            root?.rOptions?.visibility = View.VISIBLE
+            identifyListBarrio(item)
+        } else {
+            root?.sp_barrio?.visibility = View.GONE
+            root?.tv_msg?.visibility = View.GONE
+            root?.rOptions?.visibility = View.GONE
+        }
+    }
+
+    private fun identifyListBarrio(item: Any?) {
+        var barrio = 0
+        when (item) {
+            "Aranjuez" -> {
+                barrio = R.array.Aranjuez
+            }
+            "Belén" -> {
+                barrio = R.array.Belen
+            }
+            "Buenos Aires" -> {
+                barrio = R.array.BuenosAires
+            }
+            "Castilla" -> {
+                barrio = R.array.Castilla
+            }
+            "Doce de Octubre" -> {
+                barrio = R.array.DoceDeOctubre
+            }
+            "El Poblado" -> {
+                barrio = R.array.ElPoblado
+            }
+            "Guayabal" -> {
+                barrio = R.array.Guayabal
+            }
+            "La América" -> {
+                barrio = R.array.LaAmerica
+            }
+            "La Candelaria" -> {
+                barrio = R.array.LaCandelaria
+            }
+            "Laureles-Estadio" -> {
+                barrio = R.array.Laureles
+            }
+            "Manrique" -> {
+                barrio = R.array.Manrique
+            }
+            "Popular" -> {
+                barrio = R.array.Popular
+            }
+            "Robledo" -> {
+                barrio = R.array.Robledo
+            }
+            "San Javier" -> {
+                barrio = R.array.SanJavier
+            }
+            "Santa Cruz" -> {
+                barrio = R.array.SantaCruz
+            }
+            "Villa Hermosa" -> {
+                barrio = R.array.VillaHermosa
+            }
+        }
+        visualizeSpinner(root?.sp_barrio!!, barrio, requireContext())
     }
 }

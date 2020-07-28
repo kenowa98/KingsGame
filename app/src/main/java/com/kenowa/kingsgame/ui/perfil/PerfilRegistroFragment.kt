@@ -56,7 +56,7 @@ class PerfilRegistroFragment : Fragment() {
             existData()
         }
 
-        clickItemComuna(root?.findViewById(R.id.sp_comuna)!!)
+        clickItemComuna(root?.sp_comuna!!)
         configureButtons()
     }
 
@@ -70,17 +70,17 @@ class PerfilRegistroFragment : Fragment() {
 
     private fun configureSpinners() {
         visualizeSpinner(
-            root?.findViewById(R.id.sp_lugarNacimiento)!!,
+            root?.sp_lugarNacimiento!!,
             R.array.lista_ciudades,
             requireContext()
         )
         visualizeSpinner(
-            root?.findViewById(R.id.sp_comuna)!!,
+            root?.sp_comuna!!,
             R.array.lista_comunas,
             requireContext()
         )
         visualizeSpinner(
-            root?.findViewById(R.id.sp_posicion)!!,
+            root?.sp_posicion!!,
             R.array.lista_posiciones,
             requireContext()
         )

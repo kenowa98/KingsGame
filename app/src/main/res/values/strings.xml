@@ -441,9 +441,17 @@
     <string-array name="reclutar_posiciones">
         <item>Seleccione una posición</item>
         <item>Arquero</item>
-        <item>Defensa</item>
-        <item>Volante</item>
-        <item>Delantero</item>
+        <item>Defensa Central</item>
+        <item>Defensa Lateral</item>
+        <item>Carrilero</item>
+        <item>Líbero</item>
+        <item>Volante Defensivo</item>
+        <item>Volante Centro</item>
+        <item>Volante en Banda</item>
+        <item>Media Punta</item>
+        <item>Extremo</item>
+        <item>Delantero Centro</item>
+        <item>Segundo Delantero</item>
     </string-array>
 
     <string name="menu_equipo">Equipo</string>
@@ -477,8 +485,10 @@
     <string name="bt_rechazar">Rechazar</string>
     <string name="bt_reclutar">RECLUTAR</string>
     <string name="bt_filtrar">FILTRAR</string>
-    <string name="aviso">No hay solicitudes</string>
-    <string name="aviso2">Tomar en cuenta la selección del barrio</string>
+    <string name="aviso_solicitud">No hay solicitudes</string>
+    <string name="aviso_barrio">Tomar en cuenta la selección del barrio</string>
+    <string name="aviso_edad">Rango de edad</string>
+    <string name="aviso_reclutar">No hay jugadores</string>
     <string name="tit_reclutar">Filtra tu búsqueda</string>
     <string name="edad_min">De</string>
     <string name="edad_max">Hasta</string>
