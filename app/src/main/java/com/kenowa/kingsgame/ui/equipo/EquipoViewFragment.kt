@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.kenowa.kingsgame.R
+import com.kenowa.kingsgame.hideProgressBar
 import com.kenowa.kingsgame.isUser
 import com.kenowa.kingsgame.model.Player
 import com.kenowa.kingsgame.model.Usuario
@@ -48,65 +48,61 @@ class EquipoViewFragment : Fragment(), EquipoRVAdapter.OnItemClickListener {
         arguments?.let {
             val safeArgs = EquipoViewFragmentArgs.fromBundle(it)
             idTeam = safeArgs.team
-            root!!.tv_team.text = idTeam
+            root?.tv_team?.text = idTeam
         }
 
         loadPlayers()
         val item = R.layout.item_player
 
-        root!!.rv_goalkeeper.layoutManager = LinearLayoutManager(
+        root?.rv_goalkeeper?.layoutManager = LinearLayoutManager(
             requireContext(),
             RecyclerView.HORIZONTAL,
             false
         )
         goalkeeperAdapter = EquipoRVAdapter(allGoalkeepers as ArrayList<Usuario>, item, this)
-        root!!.rv_goalkeeper.adapter = goalkeeperAdapter
+        root?.rv_goalkeeper?.adapter = goalkeeperAdapter
 
-        root!!.rv_defender.layoutManager = LinearLayoutManager(
+        root?.rv_defender?.layoutManager = LinearLayoutManager(
             requireContext(),
             RecyclerView.HORIZONTAL,
             false
         )
         defenderAdapter = EquipoRVAdapter(allDefenders as ArrayList<Usuario>, item, this)
-        root!!.rv_defender.adapter = defenderAdapter
+        root?.rv_defender?.adapter = defenderAdapter
 
-        root!!.rv_midfield.layoutManager = LinearLayoutManager(
+        root?.rv_midfield?.layoutManager = LinearLayoutManager(
             requireContext(),
             RecyclerView.HORIZONTAL,
             false
         )
         midfieldAdapter = EquipoRVAdapter(allMidfielders as ArrayList<Usuario>, item, this)
-        root!!.rv_midfield.adapter = midfieldAdapter
+        root?.rv_midfield?.adapter = midfieldAdapter
 
-        root!!.rv_striker.layoutManager = LinearLayoutManager(
+        root?.rv_striker?.layoutManager = LinearLayoutManager(
             requireContext(),
             RecyclerView.HORIZONTAL,
             false
         )
         strikerAdapter = EquipoRVAdapter(allStrikers as ArrayList<Usuario>, item, this)
-        root!!.rv_striker.adapter = strikerAdapter
+        root?.rv_striker?.adapter = strikerAdapter
     }
 
-    override fun onItemClick(usuario: Usuario) {
-        val action = EquipoViewFragmentDirections.actionNavEquipoViewToNavPerfilView(usuario)
+    override fun onItemClick(user: Usuario) {
+        val action = EquipoViewFragmentDirections.actionNavEquipoViewToNavPerfilView(user)
         findNavController().navigate(action)
     }
 
-    private fun hideProgressBar() {
-        root!!.progressBar.visibility = View.GONE
-    }
-
     private fun loadPlayers() {
-        val myRef = referenceDatabase("equipos")
-        idPlayers(myRef)
         allID.clear()
         allGoalkeepers.clear()
         allDefenders.clear()
         allMidfielders.clear()
         allStrikers.clear()
+        idPlayers()
     }
 
-    private fun idPlayers(myRef: DatabaseReference) {
+    private fun idPlayers() {
+        val myRef = referenceDatabase("equipos")
         val postListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {}
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -121,17 +117,14 @@ class EquipoViewFragment : Fragment(), EquipoRVAdapter.OnItemClickListener {
     }
 
     private fun searchUser() {
-        val myRef = referenceDatabase("usuarios")
         for (id in allID) {
-            identifyUser(myRef, id)
+            identifyUser(id)
         }
-        hideProgressBar()
+        hideProgressBar(root?.progressBar!!)
     }
 
-    private fun identifyUser(
-        myRef: DatabaseReference,
-        id: String
-    ) {
+    private fun identifyUser(id: String) {
+        val myRef = referenceDatabase("usuarios")
         val postListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {}
 

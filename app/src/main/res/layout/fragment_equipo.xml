@@ -84,7 +84,7 @@
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/bt_edit"
                     android:scaleType="center"
-                    app:srcCompat="@drawable/ic_group"
+                    app:srcCompat="@drawable/ic_eye"
                     tools:ignore="ContentDescription" />
 
                 <ImageButton
@@ -143,7 +143,7 @@
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/bt_edit"
                     android:scaleType="center"
-                    app:srcCompat="@drawable/ic_group"
+                    app:srcCompat="@drawable/ic_eye"
                     tools:ignore="ContentDescription" />
 
                 <ImageButton
@@ -226,25 +226,25 @@
             android:visibility="gone">
 
             <Button
-                android:id="@+id/bt_crear2"
+                android:id="@+id/bt_cancelar"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/bt_rounded_green"
+                android:background="@drawable/bt_rounded_red"
                 android:fontFamily="@font/amiko"
-                android:text="@string/bt_crear"
+                android:text="@string/bt_cancelar"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 tools:ignore="ButtonStyle" />
 
             <Button
-                android:id="@+id/bt_cancelar"
+                android:id="@+id/bt_crear2"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:background="@drawable/bt_rounded_red"
+                android:background="@drawable/bt_rounded_green"
                 android:fontFamily="@font/amiko"
-                android:text="@string/bt_cancelar"
+                android:text="@string/bt_crear"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 tools:ignore="ButtonStyle" />

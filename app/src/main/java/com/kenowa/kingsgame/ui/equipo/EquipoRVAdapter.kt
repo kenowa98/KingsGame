@@ -57,6 +57,6 @@ class EquipoRVAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(usuario: Usuario)
+        fun onItemClick(user: Usuario)
     }
 }

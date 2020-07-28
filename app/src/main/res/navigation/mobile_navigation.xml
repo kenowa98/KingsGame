@@ -23,12 +23,12 @@
         android:name="com.kenowa.kingsgame.ui.perfil.PerfilRegistroFragment"
         android:label="@string/menu_perfil"
         tools:layout="@layout/fragment_perfil_registro">
-        <action
-            android:id="@+id/action_nav_perfil_registro_to_nav_perfil"
-            app:destination="@id/nav_perfil" />
         <argument
             android:name="user"
             app:argType="com.kenowa.kingsgame.model.Usuario" />
+        <action
+            android:id="@+id/action_nav_perfil_registro_to_nav_perfil"
+            app:destination="@id/nav_perfil" />
     </fragment>
 
     <fragment
@@ -66,13 +66,16 @@
             android:name="team"
             android:defaultValue='""'
             app:argType="string" />
-        <action
-            android:id="@+id/action_nav_equipo_edit_to_nav_player_edit"
-            app:destination="@id/nav_player_edit" />
         <argument
             android:name="admin"
             android:defaultValue="false"
             app:argType="boolean" />
+        <argument
+            android:name="user"
+            app:argType="com.kenowa.kingsgame.model.Usuario" />
+        <action
+            android:id="@+id/action_nav_equipo_edit_to_nav_player_edit"
+            app:destination="@id/nav_player_edit" />
         <action
             android:id="@+id/action_nav_equipo_edit_to_nav_reclutar"
             app:destination="@id/nav_reclutar" />
@@ -102,7 +105,7 @@
             android:defaultValue='""'
             app:argType="string" />
         <argument
-            android:name="usuario"
+            android:name="user"
             app:argType="com.kenowa.kingsgame.model.Usuario" />
     </fragment>
 
@@ -111,13 +114,12 @@
         android:name="com.kenowa.kingsgame.ui.equipo.SolicitudFragment"
         android:label="@string/menu_equipo"
         tools:layout="@layout/fragment_solicitud">
+        <argument
+            android:name="user"
+            app:argType="com.kenowa.kingsgame.model.Usuario" />
         <action
             android:id="@+id/action_nav_solicitud_to_nav_equipo_view"
             app:destination="@id/nav_equipo_view" />
-        <argument
-            android:name="teams"
-            android:defaultValue="0"
-            app:argType="integer" />
     </fragment>
 
     <fragment
