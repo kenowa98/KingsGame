@@ -142,18 +142,12 @@
         android:label="@string/menu_partido"
         tools:layout="@layout/fragment_partido">
         <action
-            android:id="@+id/action_nav_partido_to_nav_reserva"
-            app:destination="@id/nav_reserva" />
-        <action
             android:id="@+id/action_nav_partido_to_nav_mapa"
             app:destination="@id/nav_mapa" />
+        <action
+            android:id="@+id/action_nav_partido_to_nav_invitacion"
+            app:destination="@id/nav_invitacion" />
     </fragment>
-
-    <fragment
-        android:id="@+id/nav_reserva"
-        android:name="com.kenowa.kingsgame.ui.partido.ReservaFragment"
-        android:label="@string/menu_partido"
-        tools:layout="@layout/fragment_reserva" />
 
     <fragment
         android:id="@+id/nav_mapa"
@@ -162,10 +156,17 @@
         tools:layout="@layout/fragment_maps" />
 
     <fragment
-        android:id="@+id/nav_busqueda"
-        android:name="com.kenowa.kingsgame.ui.busqueda.BusquedaFragment"
-        android:label="@string/menu_busqueda"
-        tools:layout="@layout/fragment_busqueda" />
+        android:id="@+id/nav_invitacion"
+        android:name="com.kenowa.kingsgame.ui.busqueda.InvitacionFragment"
+        android:label="@string/menu_partido"
+        tools:layout="@layout/fragment_invitacion">
+        <argument
+            android:name="reserve"
+            app:argType="com.kenowa.kingsgame.model.Reserva" />
+        <action
+            android:id="@+id/action_nav_invitacion_to_nav_perfil_view"
+            app:destination="@id/nav_perfil_view" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_noticia"
@@ -178,5 +179,6 @@
         android:name="com.kenowa.kingsgame.ui.ranking.RankingFragment"
         android:label="@string/menu_ranking"
         tools:layout="@layout/fragment_ranking" />
+
 
 </navigation>

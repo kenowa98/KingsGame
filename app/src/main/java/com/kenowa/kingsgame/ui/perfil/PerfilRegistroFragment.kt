@@ -88,7 +88,7 @@ class PerfilRegistroFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun configureButtons() {
-        ibt_calendario.setOnClickListener { saveDate(tv_fechaNacimiento, requireContext()) }
+        ibt_calendario.setOnClickListener { saveDate(tv_fechaNacimiento, null, requireContext()) }
         bt_actualizar.setOnClickListener { clickButton(true) }
         ibt_foto.setOnClickListener { dispatchTakePictureIntent() }
         bt_comenzar.setOnClickListener {
@@ -177,7 +177,7 @@ class PerfilRegistroFragment : Fragment() {
         childUpdate["apellido"] = apellido
         childUpdate["celular"] = root?.et_celular?.text.toString()
         childUpdate["fecha"] = root?.tv_fechaNacimiento?.text.toString()
-        childUpdate["genero"] = root?.rbt_masculino?.isChecked!!
+        childUpdate["genero"] = !root?.rbt_masculino?.isChecked!!
         childUpdate["origen"] = root?.sp_lugarNacimiento?.selectedItem.toString()
         childUpdate["comuna"] = root?.sp_comuna?.selectedItem.toString()
         if (root?.sp_comuna?.selectedItem.toString() != "Otro") {

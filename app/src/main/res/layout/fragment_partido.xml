@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".ui.partido.PartidoFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,6 +32,30 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/bt_mensaje_equipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:background="@drawable/bt_rounded"
+            android:fontFamily="sans-serif"
+            android:text="@string/titulo_new"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/bt_mensaje_invitacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:background="@drawable/bt_rounded"
+            android:fontFamily="sans-serif"
+            android:text="@string/titulo_new"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_reservas"
             android:layout_width="match_parent"
@@ -50,6 +75,7 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="24sp"
+            android:visibility="gone"
             tools:ignore="RtlCompat" />
     </LinearLayout>
 </ScrollView>

@@ -39,12 +39,14 @@ class ReservasRVAdapter(
         fun bindReserva(reserva: Reserva) {
             reserve = reserva
             itemView.tv_fecha.text = reserva.fecha
-            itemView.tv_msg.text = "Juega en ${reserva.idCancha}\n" +
-                    "De ${reserva.inicioHora} a ${reserva.finHora}\n" +
+            itemView.tv_msg.text = "Juega en ${reserva.idLugar}\n" +
+                    "De ${reserva.inicioHora}:00 a ${reserva.finHora}:00\n" +
                     "Total a pagar: ${reserva.precio} COP"
+            itemView.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
+            onItemClickListener.onItemClick(reserve)
         }
     }
 

@@ -454,6 +454,35 @@
         <item>Segundo Delantero</item>
     </string-array>
 
+    <string-array name="lista_juego">
+        <item>Seleccione el estilo de juego</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>11</item>
+    </string-array>
+
+    <string-array name="lista_horas">
+        <item>Seleccione la hora de inicio</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+    </string-array>
+
     <string name="menu_equipo">Equipo</string>
     <string name="bt_crear">CREAR</string>
     <string name="bt_cancelar">CANCELAR</string>
@@ -496,9 +525,14 @@
     <string name="menu_partido">Partido</string>
     <string name="aviso_reserva">No hay reservas</string>
     <string name="aviso_lugar">Selecciona un lugar</string>
+    <string name="aviso_hora">Todas las reservas son de 1 hora</string>
     <string name="titulo_fecha">Fecha</string>
-    <!--<string name="bt_crear_partido">Crea un partido</string>-->
-    <string name="bt_crear_partido">Busca un lugar</string>
+    <string name="bt_crear_partido">Crea un partido</string>
+    <string name="bt_reserva">RESERVAR</string>
+    <string name="bt_invitar">INVITAR</string>
+    <string name="bt_invitar_personas">Invita jugadores</string>
+    <string name="bt_invitar_tus_equipos">Invita tus equipos</string>
+    <string name="bt_retar_equipos">Reta otros equipos</string>
 
     <string name="menu_busqueda">Búsqueda</string>
     <string name="msgBusqueda">
@@ -514,5 +548,7 @@
 
     <string name="titulo_new">Título</string>
     <string name="mensaje_new">Mensaje</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

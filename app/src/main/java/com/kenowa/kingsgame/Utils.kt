@@ -1,5 +1,6 @@
 package com.kenowa.kingsgame
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
@@ -39,7 +40,7 @@ fun Context.hideKeyboard(view: View) {
 fun getAge(fecha: String): String? {
     val year = fecha.substring(0, 4).toInt()
     val month = fecha.substring(5, 7).toInt()
-    val day = fecha.substring(8, 9).toInt()
+    val day = fecha.substring(8, 10).toInt()
     val dob = Calendar.getInstance()
     val today = Calendar.getInstance()
     dob[year, month] = day
@@ -82,8 +83,9 @@ fun visualizeSpinner(spinner: Spinner, lista: Int, context: Context): ArrayAdapt
     }
 }
 
+@SuppressLint("SimpleDateFormat")
 @RequiresApi(Build.VERSION_CODES.N)
-fun saveDate(tv_fecha: TextView, context: Context) {
+fun saveDate(tv_fecha: TextView, tv_day: TextView?, context: Context) {
     val cal = Calendar.getInstance()
     val dateSetListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
@@ -95,6 +97,9 @@ fun saveDate(tv_fecha: TextView, context: Context) {
             val simpleDateFormat = SimpleDateFormat(format, Locale.US)
             val fechaRegistro = simpleDateFormat.format(cal.time).toString()
             tv_fecha.text = fechaRegistro
+
+            val day = android.text.format.DateFormat.format("EEEE", cal)
+            tv_day?.text = day
         }
 
     DatePickerDialog(

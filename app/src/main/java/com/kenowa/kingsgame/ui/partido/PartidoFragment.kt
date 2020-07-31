@@ -11,17 +11,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.kenowa.kingsgame.R
+import com.kenowa.kingsgame.hideProgressBar
 import com.kenowa.kingsgame.model.Reserva
 import com.kenowa.kingsgame.referenceDatabase
+import kotlinx.android.synthetic.main.fragment_partido.*
 import kotlinx.android.synthetic.main.fragment_partido.view.*
 
 class PartidoFragment : Fragment(), ReservasRVAdapter.OnItemClickListener {
     private var allReserves: MutableList<Reserva> = mutableListOf()
     private lateinit var reservaAdapter: ReservasRVAdapter
-
     private var root: View? = null
 
     override fun onCreateView(
@@ -37,54 +37,77 @@ class PartidoFragment : Fragment(), ReservasRVAdapter.OnItemClickListener {
 
         loadReserves()
 
-        root!!.rv_reservas.layoutManager = LinearLayoutManager(
+        root?.rv_reservas?.layoutManager = LinearLayoutManager(
             requireContext(),
             RecyclerView.VERTICAL,
             false
         )
 
         reservaAdapter = ReservasRVAdapter(allReserves as ArrayList<Reserva>, this)
-        root!!.rv_reservas.adapter = reservaAdapter
+        root?.rv_reservas?.adapter = reservaAdapter
 
-        root!!.bt_crear_partido.setOnClickListener {
+        bt_crear_partido.setOnClickListener {
             findNavController().navigate(R.id.action_nav_partido_to_nav_mapa)
         }
     }
 
-    private fun hideProgressBar() {
-        root!!.progressBar.visibility = View.GONE
-    }
-
     override fun onItemClick(reserva: Reserva) {
+        val action = PartidoFragmentDirections.actionNavPartidoToNavInvitacion(reserva)
+        findNavController().navigate(action)
     }
 
     private fun loadReserves() {
-        val myRef = referenceDatabase("reservas")
-        val userID = FirebaseAuth.getInstance().currentUser?.uid.toString()
-        searchReserves(myRef, userID)
         allReserves.clear()
+        searchReserves()
     }
 
-    private fun searchReserves(
-        myRef: DatabaseReference,
-        userID: String
-    ) {
+    private fun searchReserves() {
+        val myRef = referenceDatabase("reservas")
+        val userID = FirebaseAuth.getInstance().currentUser?.uid.toString()
         val postListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {}
             override fun onDataChange(snapshot: DataSnapshot) {
                 var existReserve = false
                 for (datasnapshot: DataSnapshot in snapshot.children) {
-                    val reserva = datasnapshot.getValue(Reserva::class.java)
-                    allReserves.add(reserva!!)
-                    existReserve = true
+                    val reserva = datasnapshot.value as Map<*, *>
+                    if (isUserInReserva(reserva, userID)) {
+                        existReserve = true
+                    }
                 }
                 if (existReserve) {
-                    root!!.tv_aviso.visibility = View.GONE
+                    root?.tv_aviso?.visibility = View.GONE
+                } else {
+                    root?.tv_aviso?.visibility = View.VISIBLE
                 }
-                hideProgressBar()
+                root?.progressBar?.let { hideProgressBar(it) }
                 reservaAdapter.notifyDataSetChanged()
             }
         }
-        myRef.child(userID).addListenerForSingleValueEvent(postListener)
+        myRef.addListenerForSingleValueEvent(postListener)
+    }
+
+    private fun isUserInReserva(
+        reserva: Map<*, *>,
+        user: String
+    ): Boolean {
+        val keys = reserva.keys
+        for (i in keys) {
+            if (i == user) {
+                val data = reserva[i] as Map<*, *>
+                val userReserva = Reserva(
+                    data["id"] as String?,
+                    data["idUser"] as String,
+                    data["idCancha"] as String,
+                    data["idLugar"] as String,
+                    data["fecha"] as String,
+                    data["inicioHora"].toString().toInt(),
+                    data["finHora"].toString().toInt(),
+                    data["precio"].toString().toInt()
+                )
+                allReserves.add(userReserva)
+                return true
+            }
+        }
+        return false
     }
 }
