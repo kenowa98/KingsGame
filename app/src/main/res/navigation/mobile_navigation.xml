@@ -125,7 +125,7 @@
     <fragment
         android:id="@+id/nav_reclutar"
         android:name="com.kenowa.kingsgame.ui.busqueda.ReclutarFragment"
-        android:label="@string/menu_busqueda"
+        android:label="@string/menu_equipo"
         tools:layout="@layout/fragment_reclutar">
         <argument
             android:name="team"
@@ -147,6 +147,9 @@
         <action
             android:id="@+id/action_nav_partido_to_nav_invitacion"
             app:destination="@id/nav_invitacion" />
+        <action
+            android:id="@+id/action_nav_partido_to_nav_persona"
+            app:destination="@id/nav_persona" />
     </fragment>
 
     <fragment
@@ -166,6 +169,45 @@
         <action
             android:id="@+id/action_nav_invitacion_to_nav_perfil_view"
             app:destination="@id/nav_perfil_view" />
+        <action
+            android:id="@+id/action_nav_invitacion_to_nav_invitacion_persona"
+            app:destination="@id/nav_invitacion_persona" />
+        <action
+            android:id="@+id/action_nav_invitacion_to_nav_team"
+            app:destination="@id/nav_team" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_team"
+        android:name="com.kenowa.kingsgame.ui.partido.TeamFragment"
+        android:label="@string/menu_partido"
+        tools:layout="@layout/fragment_team">
+        <argument
+            android:name="reserve"
+            app:argType="com.kenowa.kingsgame.model.Reserva" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_invitacion_persona"
+        android:name="com.kenowa.kingsgame.ui.busqueda.InvitacionPersonaFragment"
+        android:label="@string/menu_partido"
+        tools:layout="@layout/fragment_invitacion_persona">
+        <argument
+            android:name="reserve"
+            app:argType="com.kenowa.kingsgame.model.Reserva" />
+        <action
+            android:id="@+id/action_nav_invitacion_persona_to_nav_perfil_view"
+            app:destination="@id/nav_perfil_view" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_persona"
+        android:name="com.kenowa.kingsgame.ui.partido.PersonaFragment"
+        android:label="@string/menu_partido"
+        tools:layout="@layout/fragment_persona">
+        <action
+            android:id="@+id/action_nav_persona_to_nav_perfil_view"
+            app:destination="@id/nav_perfil_view" />
     </fragment>
 
     <fragment
@@ -179,6 +221,5 @@
         android:name="com.kenowa.kingsgame.ui.ranking.RankingFragment"
         android:label="@string/menu_ranking"
         tools:layout="@layout/fragment_ranking" />
-
 
 </navigation>

@@ -15,17 +15,16 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.kenowa.kingsgame.*
-import com.kenowa.kingsgame.model.Player
-import com.kenowa.kingsgame.model.Solicitud
+import com.kenowa.kingsgame.model.Reserva
 import com.kenowa.kingsgame.model.Usuario
-import kotlinx.android.synthetic.main.fragment_reclutar.*
-import kotlinx.android.synthetic.main.fragment_reclutar.view.*
+import kotlinx.android.synthetic.main.fragment_invitacion_persona.*
+import kotlinx.android.synthetic.main.fragment_invitacion_persona.view.*
 
-class ReclutarFragment : Fragment(), ReclutarRVAdapter.OnItemClickListener {
-    private lateinit var idTeam: String
+class InvitacionPersonaFragment : Fragment(), ReclutarRVAdapter.OnItemClickListener {
     private var allPlayer: MutableList<Usuario> = mutableListOf()
     private var allID: MutableList<String> = mutableListOf()
     private lateinit var playerAdapter: ReclutarRVAdapter
+    private lateinit var reserva: Reserva
     private var players = 0
     private var root: View? = null
 
@@ -41,8 +40,8 @@ class ReclutarFragment : Fragment(), ReclutarRVAdapter.OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            val safeArgs = ReclutarFragmentArgs.fromBundle(it)
-            idTeam = safeArgs.team
+            val safeArgs = InvitacionFragmentArgs.fromBundle(it)
+            reserva = safeArgs.reserve
         }
 
         loadPlayers()
@@ -54,7 +53,7 @@ class ReclutarFragment : Fragment(), ReclutarRVAdapter.OnItemClickListener {
             false
         )
 
-        val item = R.layout.item_reclutar
+        val item = R.layout.item_invitar_user
 
         playerAdapter = ReclutarRVAdapter(allPlayer as ArrayList<Usuario>, item, this)
         root?.rv_players?.adapter = playerAdapter
@@ -70,19 +69,21 @@ class ReclutarFragment : Fragment(), ReclutarRVAdapter.OnItemClickListener {
 
     override fun onItemClick(usuario: Usuario, case: Int) {
         if (case == 1) {
-            val action = ReclutarFragmentDirections.actionNavReclutarToNavPerfilView(usuario)
+            val action =
+                InvitacionPersonaFragmentDirections.actionNavInvitacionPersonaToNavPerfilView(
+                    usuario
+                )
             findNavController().navigate(action)
         } else {
             val nombre = "${usuario.nombre} ${usuario.apellido}"
-            val myRef = referenceDatabase("solicitudes")
+            val myRef = referenceDatabase("invitaciones")
             val alertDialog: AlertDialog? = activity?.let {
                 val builder = AlertDialog.Builder(it)
                 builder.apply {
-                    setMessage("Desea reclutar a $nombre?")
+                    setMessage("Desea invitar a $nombre?")
                     setPositiveButton("aceptar") { _, _ ->
-                        val solicitud = Solicitud(id_equipo = idTeam)
-                        myRef.child(usuario.id!!).child(idTeam).setValue(solicitud)
-                        showMessage(requireContext(), "Solicitud enviada")
+                        myRef.child(usuario.id!!).child(reserva.id!!).setValue(reserva)
+                        showMessage(requireContext(), "Invitación enviada")
                     }
                     setNegativeButton("cancelar") { _, _ -> }
                 }
@@ -100,18 +101,18 @@ class ReclutarFragment : Fragment(), ReclutarRVAdapter.OnItemClickListener {
     }
 
     private fun searchMembers() {
-        val myRef = referenceDatabase("equipos")
+        val myRef = referenceDatabase("reservas")
         val postListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {}
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (datasnapshot: DataSnapshot in snapshot.children) {
-                    val player = datasnapshot.getValue(Player::class.java)
-                    allID.add(player?.id!!)
+                    val reserva = datasnapshot.getValue(Reserva::class.java)
+                    reserva?.idUser?.let { allID.add(it) }
                 }
                 loadFreePlayers()
             }
         }
-        myRef.child(idTeam).addListenerForSingleValueEvent(postListener)
+        reserva.id?.let { myRef.child(it).addListenerForSingleValueEvent(postListener) }
     }
 
     private fun loadFreePlayers() {

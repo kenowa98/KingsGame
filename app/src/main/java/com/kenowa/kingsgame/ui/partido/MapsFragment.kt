@@ -345,7 +345,8 @@ class MapsFragment : Fragment(), GoogleMap.OnMarkerClickListener {
             dateSelect,
             hourSelect,
             hourSelect + 1,
-            pago
+            pago,
+            true
         )
         if (id != null) {
             myRef.child(id).child(idUser).setValue(reserva)

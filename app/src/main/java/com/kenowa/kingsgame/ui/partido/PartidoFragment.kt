@@ -1,5 +1,6 @@
 package com.kenowa.kingsgame.ui.partido
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +37,8 @@ class PartidoFragment : Fragment(), ReservasRVAdapter.OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         loadReserves()
+        searchInvitations()
+        configureButtons()
 
         root?.rv_reservas?.layoutManager = LinearLayoutManager(
             requireContext(),
@@ -45,15 +48,46 @@ class PartidoFragment : Fragment(), ReservasRVAdapter.OnItemClickListener {
 
         reservaAdapter = ReservasRVAdapter(allReserves as ArrayList<Reserva>, this)
         root?.rv_reservas?.adapter = reservaAdapter
-
-        bt_crear_partido.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_partido_to_nav_mapa)
-        }
     }
 
     override fun onItemClick(reserva: Reserva) {
         val action = PartidoFragmentDirections.actionNavPartidoToNavInvitacion(reserva)
         findNavController().navigate(action)
+    }
+
+    private fun configureButtons() {
+        bt_crear_partido.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_partido_to_nav_mapa)
+        }
+
+        bt_mensaje_invitacion.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_partido_to_nav_persona)
+        }
+    }
+
+    private fun searchInvitations() {
+        val myRef = referenceDatabase("invitaciones")
+        val postListener = object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {}
+
+            @SuppressLint("SetTextI18n")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var solicitudes = 0
+                for (datasnapshot: DataSnapshot in snapshot.children) {
+                    ++solicitudes
+                }
+                if (solicitudes != 0) {
+                    root?.bt_mensaje_invitacion?.visibility = View.VISIBLE
+                    if (solicitudes == 1) {
+                        root?.bt_mensaje_invitacion?.text = "Tienes 1 invitación"
+                    } else {
+                        root?.bt_mensaje_invitacion?.text = "Tienes $solicitudes invitaciones"
+                    }
+                }
+            }
+        }
+        myRef.child(FirebaseAuth.getInstance().currentUser?.uid.toString())
+            .addListenerForSingleValueEvent(postListener)
     }
 
     private fun loadReserves() {
@@ -102,7 +136,8 @@ class PartidoFragment : Fragment(), ReservasRVAdapter.OnItemClickListener {
                     data["fecha"] as String,
                     data["inicioHora"].toString().toInt(),
                     data["finHora"].toString().toInt(),
-                    data["precio"].toString().toInt()
+                    data["precio"].toString().toInt(),
+                    data["admin"] as Boolean
                 )
                 allReserves.add(userReserva)
                 return true

@@ -10,5 +10,6 @@ class Reserva(
     val fecha: String = "",
     val inicioHora: Int = 0,
     val finHora: Int = 0,
-    val precio: Int = 0
+    val precio: Int = 0,
+    val admin: Boolean = false
 ) : Serializable

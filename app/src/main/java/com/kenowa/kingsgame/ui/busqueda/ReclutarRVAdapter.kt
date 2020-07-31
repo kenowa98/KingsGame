@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kenowa.kingsgame.R
 import com.kenowa.kingsgame.model.Usuario
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_reclutar.view.*
 
 class ReclutarRVAdapter(
     private var playerList: ArrayList<Usuario>,
+    private val layout: Int,
     private val onItemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<ReclutarRVAdapter.ReclutarViewHolder>() {
     override fun onCreateViewHolder(
@@ -19,7 +19,7 @@ class ReclutarRVAdapter(
         viewType: Int
     ): ReclutarViewHolder {
         val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_reclutar, parent, false)
+            LayoutInflater.from(parent.context).inflate(layout, parent, false)
         return ReclutarViewHolder(itemView, onItemClickListener)
     }
 

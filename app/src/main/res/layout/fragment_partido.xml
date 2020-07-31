@@ -54,7 +54,8 @@
             android:fontFamily="sans-serif"
             android:text="@string/titulo_new"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_reservas"

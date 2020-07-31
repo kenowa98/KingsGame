@@ -534,10 +534,8 @@
     <string name="bt_invitar_tus_equipos">Invita tus equipos</string>
     <string name="bt_retar_equipos">Reta otros equipos</string>
 
-    <string name="menu_busqueda">Búsqueda</string>
-    <string name="msgBusqueda">
-        Hay la opción de filtrar la búsqueda de jugadores o equipos para reclutar, retar, invitar a jugar, entre otras opciones
-    </string>
+    <string name="aviso_team">No hay equipos</string>
+    <string name="titulo_team">Invitar a:</string>
 
     <string name="menu_noticia">Noticias</string>
 
@@ -548,7 +546,5 @@
 
     <string name="titulo_new">Título</string>
     <string name="mensaje_new">Mensaje</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

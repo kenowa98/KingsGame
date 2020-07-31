@@ -56,7 +56,8 @@
             android:fontFamily="@font/amiko"
             android:text="@string/bt_invitar_personas"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/bt_tus_equipos"
@@ -69,7 +70,8 @@
             android:fontFamily="@font/amiko"
             android:text="@string/bt_invitar_tus_equipos"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/bt_retar_equipos"
@@ -82,7 +84,8 @@
             android:fontFamily="@font/amiko"
             android:text="@string/bt_retar_equipos"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/bt_salir"
