@@ -35,6 +35,7 @@ class PerfilFragment : Fragment() {
 
         searchUser()
         configureButtons()
+        organizeRanking()
     }
 
     private fun configureButtons() {

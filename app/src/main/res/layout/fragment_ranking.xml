@@ -4,36 +4,206 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp">
+    tools:context=".ui.ranking.RankingFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.ranking.RankingFragment">
+        android:layout_margin="8dp"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/iv_podium"
-            android:layout_width="300dp"
-            android:layout_height="350dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
             android:layout_marginTop="8dp"
             android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/podium"
             tools:ignore="ContentDescription" />
 
-        <TextView
+        <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/msgRanking"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:minWidth="50dp"
+            android:minHeight="50dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/alfa_slab_one"
+            android:text="@string/top3"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_podium" />
+            android:textSize="36sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="5"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="@string/pos1"
+                android:textAlignment="center"
+                android:textColor="@color/oro"
+                android:textSize="30sp"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/tv_pos1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/francois_one"
+                android:text="@string/titulo_new"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="5"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="@string/pos2"
+                android:textAlignment="center"
+                android:textColor="@color/plata"
+                android:textSize="30sp"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/tv_pos2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/francois_one"
+                android:text="@string/titulo_new"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="5"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="@string/pos3"
+                android:textAlignment="center"
+                android:textColor="@color/bronce"
+                android:textSize="30sp"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/tv_pos3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/francois_one"
+                android:text="@string/titulo_new"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_mis_equipos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/alfa_slab_one"
+            android:text="@string/tus_equipos"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_team1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:fontFamily="@font/amiko"
+                android:text="@string/titulo_new"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_posTeam1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="5"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="@string/pos3"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_team2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:fontFamily="@font/amiko"
+                android:text="@string/titulo_new"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_posTeam2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="5"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="@string/pos3"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+        </LinearLayout>
+    </LinearLayout>
 </ScrollView>

@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.kenowa.kingsgame.*
 import com.kenowa.kingsgame.model.Player
+import com.kenowa.kingsgame.model.Ranking
 import com.kenowa.kingsgame.model.Usuario
 import kotlinx.android.synthetic.main.fragment_equipo.*
 import kotlinx.android.synthetic.main.fragment_equipo.view.*
@@ -282,12 +283,19 @@ class EquipoFragment : Fragment() {
             admin = true,
             nombre = nombre
         )
+        val ranking = Ranking(
+            id = nombre,
+            puesto = 0,
+            puntaje = 0
+        )
         FirebaseAuth.getInstance().currentUser?.uid?.let {
             myRef.child(nombre).child(it).setValue(player)
         }
         val refUser = referenceDatabase("usuarios")
         val equipos = usuario.equipos + 1
         refUser.child(usuario.id!!).child("equipos").setValue(equipos)
+        val refRanking = referenceDatabase("ranking")
+        refRanking.child(nombre).setValue(ranking)
         showMessage(requireContext(), "Creando equipo...")
         reloadFragment()
     }

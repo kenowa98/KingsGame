@@ -540,9 +540,11 @@
     <string name="menu_noticia">Noticias</string>
 
     <string name="menu_ranking">Ranking</string>
-    <string name="msgRanking">
-        Se muestra el top10, la posición del equipo del usuario y el equipo que está por encima de su equipo
-    </string>
+    <string name="top3">Top 3</string>
+    <string name="pos1">1</string>
+    <string name="pos2">2</string>
+    <string name="pos3">3</string>
+    <string name="tus_equipos">Tus equipos</string>
 
     <string name="titulo_new">Título</string>
     <string name="mensaje_new">Mensaje</string>

@@ -12,13 +12,14 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+import com.kenowa.kingsgame.model.Ranking
 import java.io.ByteArrayOutputStream
 import java.util.*
+
 
 fun showMessage(context: Context, mensaje: String) {
     Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show()
@@ -143,4 +144,62 @@ private fun uploadPhoto(
             myRef.child(id).updateChildren(childUpdate)
         }
     }
+}
+
+fun organizeRanking() {
+    val myRef = referenceDatabase("ranking")
+    val lista = mutableListOf<Int>()
+    val postListener = object : ValueEventListener {
+        override fun onCancelled(error: DatabaseError) {}
+        override fun onDataChange(snapshot: DataSnapshot) {
+            for (datasnapshot: DataSnapshot in snapshot.children) {
+                val team = datasnapshot.value as Map<*, *>
+                lista.add(team["puntaje"].toString().toInt())
+            }
+            lista.sortDescending()
+            val map = assignPosition()
+            updateRanking(map)
+        }
+
+        private fun assignPosition(): MutableMap<Int, Int> {
+            val map = mutableMapOf<Int, Int>()
+            var anterior = -1
+            var cont = 1
+            for (i in lista) {
+                if (i == anterior) {
+                    continue
+                } else {
+                    map[i] = cont
+                    ++cont
+                    anterior = i
+                }
+            }
+            return map
+        }
+    }
+    myRef.addListenerForSingleValueEvent(postListener)
+}
+
+private fun updateRanking(map: MutableMap<Int, Int>) {
+    val myRef = referenceDatabase("ranking")
+    val postListener = object : ValueEventListener {
+        override fun onCancelled(error: DatabaseError) {}
+        override fun onDataChange(snapshot: DataSnapshot) {
+            for (datasnapshot: DataSnapshot in snapshot.children) {
+                val team = datasnapshot.getValue(Ranking::class.java)
+                val puesto = map[team?.puntaje]
+                val ranking = puesto?.let {
+                    team?.puntaje?.let { it1 ->
+                        Ranking(
+                            team.id,
+                            it,
+                            it1
+                        )
+                    }
+                }
+                team?.id?.let { myRef.child(it).setValue(ranking) }
+            }
+        }
+    }
+    myRef.addListenerForSingleValueEvent(postListener)
 }

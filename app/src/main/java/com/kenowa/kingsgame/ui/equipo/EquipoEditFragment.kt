@@ -200,14 +200,20 @@ class EquipoEditFragment : Fragment(), EquipoRVAdapter.OnItemClickListener {
             override fun onCancelled(error: DatabaseError) {}
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userID = FirebaseAuth.getInstance().currentUser?.uid.toString()
+                var eliminado = true
                 for (datasnapshot: DataSnapshot in snapshot.children) {
                     val player = datasnapshot.getValue(Player::class.java)
                     if (player?.id != userID) {
                         player?.id?.let {
                             myRef.child(idTeam).child(it).child("admin").setValue(true)
                         }
+                        eliminado = false
                         break
                     }
+                }
+                if (eliminado) {
+                    val refRanking = referenceDatabase("ranking")
+                    refRanking.child(idTeam).removeValue()
                 }
                 myRef.child(idTeam).child(userID).removeValue()
                 dataUser()

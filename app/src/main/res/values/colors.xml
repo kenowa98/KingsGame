@@ -5,8 +5,11 @@
     <color name="colorAccent">#FF4081</color>
     <item name="mycolor" type="color">#51490B</item>
     <item name="mycolor2" type="color">#6DD400</item>
+    <item name="oro" type="color">#D5A72D</item>
+    <item name="plata" type="color">#D2D2D2</item>
+    <item name="bronce" type="color">#BF7945</item>
     <item name="black" type="color">#000000</item>
-    <item name="navy" type="color">	#000080</item>
+    <item name="navy" type="color">#000080</item>
     <item name="darkblue" type="color">#00008b</item>
     <item name="mediumblue" type="color">#0000cd</item>
     <item name="blue" type="color">#0000ff</item>
